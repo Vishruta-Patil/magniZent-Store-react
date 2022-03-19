@@ -1,0 +1,35 @@
+.header-wishlist {
+  text-align: center;
+  color: var(--secondary-color);
+  font-weight: bold;
+  margin: 3rem 0 5rem;
+  font-size: 3rem;
+}
+
+.wishlist-unit {
+  margin: auto 3rem;
+  margin-right: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 5rem;
+}
+
+.product-unit {
+  box-shadow: var(--mild-shadow);
+  padding: 2rem;
+  max-width: 300px;
+  flex-basis: 32%;
+}
+
+.cross-btn {
+  margin-left: auto;
+  font-size: 2.5rem;
+}
+
+.wishlist-icon {
+  color: var(--danger-color);
+}
+
+.btn {
+  font-size: 12px;
+}

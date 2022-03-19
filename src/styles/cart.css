@@ -1,0 +1,160 @@
+.cart-main-header {
+  text-align: center;
+  color: var(--secondary-color);
+  font-weight: bold;
+  margin: 3rem 0 5rem;
+  font-size: 3rem;
+}
+
+.cart-management-box {
+  margin: 0 auto;
+  max-width: 1000px;
+  gap: 5rem;
+  margin-bottom: 5rem;
+  align-items: stretch;
+}
+
+.cart-display-container {
+  gap: 3rem;
+}
+
+.item-container {
+    border: 1.5px solid var(--gray-bold-border);
+  padding: 1rem;
+}
+
+.product-content-container,
+.product-img-container {
+  max-width: 30rem;
+}
+
+.product-content-container {
+  gap: 5px;
+  width: 30rem;
+}
+
+.product-img {
+  width: 100%;
+}
+
+.product-cart-title {
+  font-size: 2rem;
+}
+
+.duplicate-price-amount {
+  font-size: 1.5rem;
+  text-decoration: line-through;
+}
+
+.price-amount {
+  font-size: 1.8rem;
+  font-weight: bolder;
+}
+
+.price-offer {
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  font-weight: bolder;
+}
+
+.quantity-container {
+  font-size: 1.5rem;
+  gap: 1.5rem;
+}
+
+.quantity-input,
+.quantity-btn {
+  border: 1px solid var(--secondary-color);
+  background-color: transparent;
+  width: 3rem;
+  height: 3rem;
+}
+
+.quantity-btn {
+  padding: 0;
+  border-radius: 50%;
+}
+
+.remove-cart-btn,
+.add-wishlist-btn {
+  border-radius: 0;
+  margin-top: 1rem;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.remove-cart-btn {
+  background-color: var(--secondary-color);
+}
+
+.add-wishlist-btn {
+  border-color: var(--secondary-color);
+  color: var(--secondary-color);
+}
+
+/* Price Container */
+
+.price-details-container {
+    max-width: 35rem;
+    width: 100%;
+    border: 1.5px solid var(--gray-bold-border);
+    padding: 3rem;
+    margin: 0;
+    height: fit-content;
+}
+
+.price-details-header {
+    font-size: 2rem;
+}
+
+.price-calculation,
+.gen-msg {
+    font-size: 1.5rem;
+}
+
+.total-amount-box {
+    font-size: 1.8rem;
+    font-weight: bolder;
+}
+
+.gen-msg {
+    margin-bottom: 1.5rem;
+}
+
+.place-order-btn {
+    font-weight: 500;
+    font-size: 1.5rem;
+    border-radius: 0;
+}
+
+
+@media only screen and (max-width: 1000px) { 
+    .cart-management-box {
+        margin: 0 3rem
+    }
+}
+
+@media only screen and (max-width: 850px) { 
+    .cart-management-box {
+        flex-direction: column;
+        margin: 0 5rem;
+        align-items: center;
+    }
+    .price-details-container {
+        margin-bottom: 3rem;
+        max-width: 100%;
+    }
+    .product-content-container {
+      max-width: 100%;
+    }
+}
+
+@media only screen and (max-width: 450px) { 
+    .item-container {
+        flex-direction: column;
+        width: 40rem;
+    }
+    .cart-management-box {
+        margin: 0 3rem
+    }
+}
