@@ -1,7 +1,7 @@
 import { Carousel } from "../../components/carousel";
 import ContentTitle from "../../components/home/contentTiltle";
 import CategoryContainer from "../../components/home/categoryContainer";
-import ProductContainer from "../../components/common/ProductContainer";
+import ProductCard from "../../components/common/ProductCard";
 import topProductsData from "../../data/topProductsData";
 export const Home = () => {
   return (
@@ -21,7 +21,7 @@ export const Home = () => {
         </ContentTitle>
         <div class="product-container">
           {topProductsData.map((item) => (
-            <ProductContainer item={item}/>
+            <ProductCard item={item}/>
           ))}
         </div>
       </div>

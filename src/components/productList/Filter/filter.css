@@ -1,0 +1,30 @@
+
+
+  input[type='range'] {
+    overflow: hidden;
+    width: 100%;
+    -webkit-appearance: none;
+    background-color: var(--primary-color);
+  }
+  
+  input[type='range']::-webkit-slider-runnable-track {
+    height: 1px;
+    -webkit-appearance: none;
+    color: #13bba4;
+    margin-top: -1px;
+    border-radius: 10px;
+  }
+  
+  input[type='range']::-webkit-slider-thumb {
+    width: 1.5rem;
+    -webkit-appearance: none;
+    height: 10px;
+    cursor: ew-resize;
+    background: var(--white-color);
+    box-shadow: -80px 0 0 80px var(--secondary-color);
+  }
+
+  .fa-star {
+    color: var(--secondary-color)
+  }
+  
