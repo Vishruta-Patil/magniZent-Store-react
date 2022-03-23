@@ -19,7 +19,7 @@ const Category = () => {
               })
             }
           />
-          <label for={categoryName}>{categoryName}</label>
+          <label htmlFor={categoryName}>{categoryName}</label>
         </div>
       ))}
     </div>

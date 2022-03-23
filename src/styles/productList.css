@@ -1,3 +1,7 @@
+.product-list-container {
+  min-height: 70vh;
+}
+
 .filter-container {
   grid-area: menu;
   margin: 3rem;

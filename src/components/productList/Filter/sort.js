@@ -14,7 +14,7 @@ const Sort = () => {
           }
           checked={state.sortDir === "LOW_TO_HIGH"}
         />
-        <label for="low-to-high">Price - Low to High </label>
+        <label htmlFor="low-to-high">Price - Low to High </label>
       </div>
       
       <div class="filter-item align-center">
@@ -27,7 +27,7 @@ const Sort = () => {
           }
           checked={state.sortDir === "HIGH_TO_LOW"}
         />
-        <label for="high-to-low">Price - High to Low</label>
+        <label htmlFor="high-to-low">Price - High to Low</label>
       </div>
     </div>
   );

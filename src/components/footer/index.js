@@ -9,8 +9,8 @@ export const Footer = () => {
         <div class="social-links-container">
           <ul class="flex social-links-inner-container">
             {
-              footerSocialLinksData.map(item => (
-                <li>
+              footerSocialLinksData.map((item,index) => (
+                <li key={index}>
                   <a href={item.social_link} target="_blank"><i
                     class={`fab footer-social-icon ${item.class_name}`}></i></a>
                 </li>

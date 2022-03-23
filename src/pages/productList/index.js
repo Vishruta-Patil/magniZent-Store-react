@@ -31,8 +31,8 @@ useEffect(() => (async () => await getHandler())(),[]);
           {state.loading ? (
             <Loader />
           ) : (
-            filteredData.map((data) => (
-              <ProductCard item={data}/>
+            filteredData.map((data,index) => (
+              <ProductCard item={data} key={index}/>
             ))
           )}
         </div>

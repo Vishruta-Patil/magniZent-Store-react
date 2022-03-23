@@ -20,8 +20,8 @@ export const Home = () => {
           MOST DAZZLING OFFERS
         </ContentTitle>
         <div class="product-container">
-          {topProductsData.map((item) => (
-            <ProductCard item={item}/>
+          {topProductsData.map(item => (
+            <ProductCard item={item} key={item.id}/>
           ))}
         </div>
       </div>

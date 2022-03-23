@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { productReducer } from "../reducer/productList/productListReducer";
 import {
+  composeFunc,
   sortByPrice,
   filterByRating,
   filterByCategory,
@@ -27,17 +28,7 @@ const ProductProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(productReducer, initialValue);
 
-  const filteredData = filterByPriceRange(
-    state,
-    filterByCategory(
-      state,
-      filterByRating(state, sortByPrice(state, state.productListData))
-    )
-  );
-
-  const composeFunc = (state, func) => {
-    func.reduce((acc, curr) => curr(acc), state);
-  };
+  const filteredData = composeFunc(state, filterByPriceRange, filterByCategory, filterByRating, sortByPrice)(state.productListData)
 
   return (
     <ProductListContext.Provider value={{ state, dispatch, filteredData }}>

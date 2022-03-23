@@ -1,3 +1,7 @@
+export const composeFunc = ( state, ...func) => (data)=> {
+    return func.reduce((acc, curr) =>  curr(state, acc), data);
+  };
+
 export const sortByPrice = (state,data) => {
     if(state.sortDir === "LOW_TO_HIGH") {
         return [...data].sort((a,b) => a.product_price - b.product_price)
