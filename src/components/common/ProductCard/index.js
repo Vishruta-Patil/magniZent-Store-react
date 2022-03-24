@@ -1,5 +1,5 @@
 import "./index.css"
-const ProductContainer = ({item}) => {
+const ProductCard = ({item}) => {
     return (
        
           <div class="product-unit flex-column ">
@@ -10,7 +10,7 @@ const ProductContainer = ({item}) => {
             </div>
 
             {/* <p class="description-product">{item.product_desc}</p> */}
-            <p class="price">{item.product_price}<span class="price-offer">{item.product_offer} off</span></p>
+            <p class="price">₹{item.product_price}<span class="price-offer">{item.product_offer} off</span> {item?.info?.ratings}</p>
             <div class="btn-container flex product-unit-btn-container">
             <button class="hero-btn product-unit-btn">Buy Now</button>
             <button class="outline-btn product-unit-btn">Add To Cart</button>
@@ -20,4 +20,4 @@ const ProductContainer = ({item}) => {
     )
 }
 
-export default ProductContainer
+export default ProductCard

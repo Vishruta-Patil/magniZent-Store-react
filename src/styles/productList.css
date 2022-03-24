@@ -1,3 +1,7 @@
+.product-list-container {
+  min-height: 70vh;
+}
+
 .filter-container {
   grid-area: menu;
   margin: 3rem;
@@ -10,7 +14,7 @@
 }
 
 .filter-content-title {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin-bottom: 1rem;
 }
 
@@ -26,11 +30,13 @@ hr {
 }
 
 .clear-link {
+  cursor: pointer;
+  margin-left: auto;
   text-decoration: underline;
 }
 
-input[type="range"] {
-  color: red;
+.clear-link:hover {
+  color: var(--primary-color)
 }
 
 /* Product Container */
@@ -131,6 +137,7 @@ input[type="range"] {
 .mb-filter.filter-header {
   font-size: 2.3rem;
 }
+
 
 @media only screen and (max-width: 695px) {
   .product-container {

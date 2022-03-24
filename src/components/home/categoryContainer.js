@@ -4,7 +4,7 @@ const CategoryContainer = () => {
     return (
         <div class="category-container">
           {categoryData.map(item => (
-             <div class="category-unit flex-center">
+             <div class="category-unit flex-center" key={item?.id}>
              <img src={item.img_url} alt={item.img_name} />
              <p class="category-content">{item.img_name}</p>
            </div>

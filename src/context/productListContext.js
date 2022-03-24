@@ -1,21 +1,40 @@
-import { createContext, useContext, useReducer} from "react";
-import {productReducer} from "../reducer/productList/productListReducer"
+import { createContext, useContext, useReducer } from "react";
+import { productReducer } from "../reducer/productList/productListReducer";
+import {
+  composeFunc,
+  sortByPrice,
+  filterByRating,
+  filterByCategory,
+  filterByPriceRange,
+} from "../reducer/productList/helper";
 
-const ProductListContext = createContext()
-const useProductList = () => useContext(ProductListContext)
+const ProductListContext = createContext();
+const useProductList = () => useContext(ProductListContext);
 
-const initialValue = {
+const ProductProvider = ({ children }) => {
+  const initialValue = {
     loading: false,
-    productListData: []
-}
+    productListData: [],
+    sortDir: "",
+    ratingAmount: "",
+    priceRange: "",
+    category: {
+      fashion: false,
+      jewellery: false,
+      home: false,
+    },
+    // category: {},
+  };
 
-const ProductProvider = ({children}) => {
-    const [state, dispatch] = useReducer(productReducer, initialValue)
-    return (
-        <ProductListContext.Provider value={{state,dispatch}}>
-            {children}
-        </ProductListContext.Provider>
-    )
-}
+  const [state, dispatch] = useReducer(productReducer, initialValue);
 
-export {ProductProvider, useProductList}
+  const filteredData = composeFunc(state, filterByPriceRange, filterByCategory, filterByRating, sortByPrice)(state.productListData)
+
+  return (
+    <ProductListContext.Provider value={{ state, dispatch, filteredData }}>
+      {children}
+    </ProductListContext.Provider>
+  );
+};
+
+export { ProductProvider, useProductList };

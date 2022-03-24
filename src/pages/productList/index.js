@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Loader from "../../components/common/Loader";
-import ProductContainer from "../../components/common/ProductContainer";
+import ProductCard from "../../components/common/ProductCard";
 import Filter from "../../components/productList/Filter";
 import { useProductList } from "../../context/productListContext";
 import {LOADING_SPINNER, PRODUCT_LIST_DATA} from "../../reducer/productList/productConstants"
 
 export const ProductList = () => {
-const { state, dispatch } = useProductList();
+const { state, dispatch, filteredData} = useProductList();
 
   const getHandler = async () => {
     dispatch({ type: LOADING_SPINNER });
@@ -31,8 +31,8 @@ useEffect(() => (async () => await getHandler())(),[]);
           {state.loading ? (
             <Loader />
           ) : (
-            state.productListData.map((data) => (
-              <ProductContainer item={data}/>
+            filteredData.map((data,index) => (
+              <ProductCard item={data} key={index}/>
             ))
           )}
         </div>

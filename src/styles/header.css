@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
 .header {
   color: var(--primary-color);
   display: flex;
@@ -13,9 +15,8 @@
 }
 
 .main-title {
+  font-family: 'Roboto Slab', serif;
   font-size: 4rem;
-  font-weight: 600;
-  /* border-bottom: 1px solid var(--secondary-color); */
 }
 
 .bold-main-title {
