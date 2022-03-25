@@ -1,6 +1,10 @@
 .loader {
   width:100px;
   display:flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 .loader span {
   width:10px;

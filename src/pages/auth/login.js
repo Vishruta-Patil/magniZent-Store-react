@@ -56,7 +56,7 @@ export const LogIn = () => {
       />
       <div class="terms-container flex">
         <input id="terms-input" type="checkbox" />{" "}
-        <label for="terms-input">I accept all the terms and conditions</label>
+        <label htmlFor="terms-input">I accept all the terms and conditions</label>
       </div>
 
       <button class="hero-btn" onClick={loginHandler}>

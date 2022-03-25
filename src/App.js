@@ -15,8 +15,10 @@ import {
 import Mockman from "mockman-js";
 import "./App.css";
 import "./styles/index.css";
+import { User } from "./context/userContext";
 
 function App() {
+  const {state} = User()
   const useAuth = () => {
     const user_data = localStorage.getItem("token");
     return user_data !== null;
@@ -55,7 +57,7 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/mock" element={<Mockman />} />
         </Routes>
-        <Footer />
+        {!state.userLoading ? <Footer />  : null}
     </div>
   );
 }
