@@ -19,6 +19,23 @@ const { state, dispatch, filteredData} = useProductList();
       console.log(err);
     }
   };
+  
+  const addToWishListHandler = async ({ item }) => {
+    try {
+      const config = {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      };
+      const data = {
+        product: item,
+      };
+      await axios.post("/api/user/wishlist", data, config);
+
+    } catch (err) {
+      console.log("err:- " + err);
+    }
+  };
 
 useEffect(() => (async () => await getHandler())(),[]);
 
@@ -32,7 +49,7 @@ useEffect(() => (async () => await getHandler())(),[]);
             <Loader />
           ) : (
             filteredData.map((data,index) => (
-              <ProductCard item={data} key={index}/>
+              <ProductCard item={data} key={index} clickHandler={addToWishListHandler}/>
             ))
           )}
         </div>
