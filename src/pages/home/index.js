@@ -3,11 +3,21 @@ import ContentTitle from "../../components/home/contentTiltle";
 import CategoryContainer from "../../components/home/categoryContainer";
 import ProductCard from "../../components/common/ProductCard";
 import topProductsData from "../../data/topProductsData";
+import Loader from "../../components/common/Loader";
+import { User } from "../../context/userContext";
+
+
 export const Home = () => {
+  const {state} = User()
   return (
     <div>
+      {state.userLoading ?
+      <div> 
+      <Loader />
+      </div>
+      :
+    <div>
       <Carousel />
-
       <div class="prominent-category">
         <ContentTitle styles={"offer-header offer-header-1"}>
           PROMINENT CATEGORY TO BAG
@@ -25,6 +35,8 @@ export const Home = () => {
           ))}
         </div>
       </div>
+    </div>
+}
     </div>
   );
 };

@@ -1,24 +1,62 @@
+import { Header, Footer } from "./components";
+import {
+  Home,
+  ProductList,
+  Wishlist,
+  Cart,
+  SignIn,
+  LogIn,
+} from "./pages/index";
+import {
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Mockman from "mockman-js";
 import "./App.css";
-import "./styles/index.css"
-import { Header, Footer } from "./components"
-import { Home, ProductList, Wishlist, Cart } from "./pages/index"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import "./styles/index.css";
 
 function App() {
+  const useAuth = () => {
+    const user_data = localStorage.getItem("token");
+    return user_data !== null;
+  };
+
+  const PrivateRoute = ({ children }) => {
+    const auth = useAuth();
+    return auth ? children : <Navigate to="/login" />
+  };
+
   return (
     <div>
-      <BrowserRouter>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product-list" element={<ProductList />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
+          <Route
+            path="/cart"
+            element={
+              <PrivateRoute>
+                <Cart />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/wishlist"
+            element={
+              <PrivateRoute>
+                <Wishlist />
+              </PrivateRoute>
+            }
+          />
+
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/mock" element={<Mockman />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
     </div>
-
   );
 }
 

@@ -1,17 +1,44 @@
 .loader {
-    border: 1.6rem solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 1.6rem solid var(--primary-color);
-    border-right: 1.6rem solid var(--secondary-color);
-    border-bottom: 1.6rem solid var(--primary-color);
-    border-left: 1.6rem solid var(--secondary-color);
-    width: 12rem;
-    height: 12rem;
-    animation: spin 2s linear infinite;
+  width:100px;
+  display:flex;
+}
+.loader span {
+  width:10px;
+  height:120px;
+  background:white;
+  margin:0px 3px;
+  animation:loading 1200ms ease-in-out infinite;
+}
+.loader span:nth-child(1) {
+  background:var(--primary-color);
+  animation-delay:-700ms;
+}
+.loader span:nth-child(2) {
+  background:var(--secondary-color);
+  animation-delay:-600ms;
+}
+.loader span:nth-child(3) {
+  background:var(--primary-color);
+  animation-delay:-500ms;
+}
+.loader span:nth-child(4) {
+  background:var(--secondary-color);
+  animation-delay:-400ms;
+}
+.loader span:nth-child(5) {
+  background:var(--primary-color);
+  animation-delay:-300ms;
+}
+.loader span:nth-child(6) {
+  background:var(--secondary-color);
+  animation-delay:-200ms;
+}
+
+@keyframes loading {
+  0%,60%,100% {
+    transform:scaleY(0.05);
   }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  35% {
+    transform:scale(1);
   }
-  
+}
