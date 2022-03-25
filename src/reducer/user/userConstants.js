@@ -1,0 +1,2 @@
+export const USER_LOADING = "USER_LOADING"
+export const LOGIN_STATUS = "LOGIN_STATUS"

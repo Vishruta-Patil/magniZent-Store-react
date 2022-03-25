@@ -1,7 +1,7 @@
 const headerLinksData = [
     {
         id: 1,
-        link: "/",
+        link: "/login",
         icon: "login",
         desc: "Login"
     },
