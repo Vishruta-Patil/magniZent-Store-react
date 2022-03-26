@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useWishList } from "../../context/wishlistContext";
-import { WISHLIST_DATA } from "../../reducer/wishlist/wishlistConstants";
+import { WISHLIST_LOADER, WISHLIST_DATA } from "../../reducer/wishlist/wishlistConstants";
 import ProductCard from "../../components/common/ProductCard";
 import EmptyWishList from "./emptyWishList";
+import Loader from "../../components/common/Loader";
 
 export const Wishlist = () => {
   const { state, dispatch } = useWishList();
@@ -12,6 +13,9 @@ export const Wishlist = () => {
   useEffect(
     () =>
       (async () => {
+        {console.log("wishlist1: ", state.wishListLoader)}
+        dispatch({type: WISHLIST_LOADER})
+        {console.log("wishlist2: ", state.wishListLoader)}
         try {
           const response = await axios.get("/api/user/wishlist", {
             headers: {
@@ -19,13 +23,11 @@ export const Wishlist = () => {
             },
           });
 
-          console.log(
-            "wishlist" +
-              state.wishListData.length +
-              JSON.stringify(response.data.wishlist)
-          );
+          dispatch({type: WISHLIST_LOADER})
+          {console.log("wishlist3: ", state.wishListLoader)}
           dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
         } catch (err) {
+          dispatch({type: WISHLIST_LOADER})
           console.log(err);
         }
       })(),
@@ -41,15 +43,17 @@ export const Wishlist = () => {
       };
       
       const response = await axios.delete(`/api/user/wishlist/${item._id}`, config);
-      console.log(response.data.wishlist)
+      console.log("wish res: " + response.data.wishlist)
       dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
 
     } catch (err) {
-      console.log("err:- " + err);
+      console.log("wish err:- " + err);
     }
   };
 
   return (
+    <div>
+      {state.wishListLoader ? <Loader /> :
     <div class="wishlist-container">
       <h2 class="header-wishlist">My Wishlist</h2>
 
@@ -59,11 +63,13 @@ export const Wishlist = () => {
         ) : (
           <div class="wishlist-unit">
             {state.wishListData.map((data,index)=> (
-             <ProductCard item={data} key={index} clickHandler={deleteWishListHandler}/>
+             <ProductCard item={data} key={index} clickHandler={deleteWishListHandler} from={true}/>
             ))}
           </div>
         )}
       </div>
+    </div>
+}
     </div>
   );
 };

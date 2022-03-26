@@ -1,7 +1,22 @@
 import axios from "axios";
 import "./index.css";
+import { useState } from "react";
+import { useWishList } from "../../../context/wishlistContext";
+import { WISHLIST_STATUS_CLASS } from "../../../reducer/wishlist/wishlistConstants";
 
-const ProductCard = ({ item, clickHandler }) => {
+const ProductCard = ({ item, clickHandler, from }) => {
+  const [activeClass, setActiveClass] = useState("wishlist-icon")
+  const {state, dispatch} = useWishList()
+
+  const btnHandler = () => {
+    // dispatch({type: WISHLIST_STATUS_CLASS})
+    clickHandler({ item })
+    if(activeClass ==="wishlist-icon") {
+      setActiveClass("wishlist-active")
+    } else {
+      setActiveClass("wishlist-icon")
+    }
+  }
   return (
     <div class="product-unit flex-column ">
       <img
@@ -11,13 +26,16 @@ const ProductCard = ({ item, clickHandler }) => {
       />
       <div class="product-unit-header justify-between">
         <p class="name-product">{item.product_name}</p>
-        <button
-          style={{ background: "none" }}
-          onClick={() => clickHandler({ item })}
-        >
-          <span class="material-icons wishlist-icon"> favorite </span>
-        </button>
         
+        <button
+          style={{ background: "none", padding: 0}}
+          onClick={btnHandler}
+        >
+          {from ?
+          <span class="material-icons wishlist-in-icon"> favorite </span>
+          :  <span class={`material-icons ${activeClass}`}> favorite </span> //state.wishListStatusClass
+}
+        </button>      
       </div>
 
       {/* <p class="description-product">{item.product_desc}</p> */}

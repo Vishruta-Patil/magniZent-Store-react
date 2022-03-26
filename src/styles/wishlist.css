@@ -27,7 +27,23 @@
 }
 
 .wishlist-icon {
+  color: var(--secondary-color);
+}
+
+/* .wishlist-icon:hover {
+  color: var(--primary-color);
+} */
+
+.wishlist-active {
+  color: var(--primary-color);
+}
+
+.wishlist-in-icon {
   color: var(--danger-color);
+}
+
+.wishlist-in-icon:hover {
+  color: var(--secondary-color);
 }
 
 .btn {

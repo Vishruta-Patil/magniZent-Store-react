@@ -5,7 +5,7 @@ import ProductCard from "../../components/common/ProductCard";
 import topProductsData from "../../data/topProductsData";
 import Loader from "../../components/common/Loader";
 import { User } from "../../context/userContext";
-
+import axios from "axios";
 
 export const Home = () => {
   const {state} = User()
@@ -21,6 +21,7 @@ export const Home = () => {
         product: item,
       };
       await axios.post("/api/user/wishlist", data, config);
+      console.log("working from home")
 
     } catch (err) {
       console.log("err:- " + err);
@@ -50,7 +51,7 @@ export const Home = () => {
         </ContentTitle>
         <div class="product-container">
           {topProductsData.map(item => (
-            <ProductCard item={item} key={item.id} clickHandler={addToWishListHandler}/>
+            <ProductCard item={item} key={item._id} clickHandler={addToWishListHandler}/>
           ))}
         </div>
       </div>

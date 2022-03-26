@@ -57,7 +57,7 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/mock" element={<Mockman />} />
         </Routes>
-        {!state.userLoading ? <Footer />  : null}
+        {/* {!state.userLoading ? <Footer />  : null} */}
     </div>
   );
 }

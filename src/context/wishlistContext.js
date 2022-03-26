@@ -7,7 +7,8 @@ const useWishList = () => useContext(WishlistContext)
 const WishlistProvider = ({children}) => {
     const initialValue = {
         wishListLoader: false,
-        wishListData: []
+        wishListData: [],
+        wishListStatusClass: "wishlist-icon"
     }
     const [state, dispatch] = useReducer(wishlistReducer, initialValue)
     return (
