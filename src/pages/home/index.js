@@ -5,10 +5,30 @@ import ProductCard from "../../components/common/ProductCard";
 import topProductsData from "../../data/topProductsData";
 import Loader from "../../components/common/Loader";
 import { User } from "../../context/userContext";
-
+import axios from "axios";
 
 export const Home = () => {
   const {state} = User()
+
+  const addToWishListHandler = async ({ item }) => {
+    try {
+      const config = {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      };
+      const data = {
+        product: item,
+      };
+      await axios.post("/api/user/wishlist", data, config);
+      console.log("working from home")
+
+    } catch (err) {
+      console.log("err:- " + err);
+    }
+  };
+
+
   return (
     <div>
       {state.userLoading ?
@@ -31,7 +51,7 @@ export const Home = () => {
         </ContentTitle>
         <div class="product-container">
           {topProductsData.map(item => (
-            <ProductCard item={item} key={item.id}/>
+            <ProductCard item={item} key={item._id} clickHandler={addToWishListHandler}/>
           ))}
         </div>
       </div>

@@ -2,7 +2,7 @@
   text-align: center;
   color: var(--secondary-color);
   font-weight: bold;
-  margin: 3rem 0 5rem;
+  margin: 3rem 0;
   font-size: 3rem;
 }
 
@@ -27,9 +27,48 @@
 }
 
 .wishlist-icon {
+  color: var(--secondary-color);
+}
+
+/* .wishlist-icon:hover {
+  color: var(--primary-color);
+} */
+
+.wishlist-active {
+  color: var(--primary-color);
+}
+
+.wishlist-in-icon {
   color: var(--danger-color);
+}
+
+.wishlist-in-icon:hover {
+  color: var(--secondary-color);
 }
 
 .btn {
   font-size: 12px;
+}
+
+.wishlist-empty-box {
+  gap: 7rem;
+}
+
+.wishlist-empty-header {
+  font-size: 2rem;
+}
+
+.wishlist-empty-image {
+  width: 500px;
+  height: 500px;
+  object-fit: cover; 
+}
+
+.wishlist-title {
+  margin-bottom: 2rem;
+  color: var(--primary-color)
+}
+
+.wishlist-subtitle {
+  color: var(--secondary-color)
 }

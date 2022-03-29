@@ -10,13 +10,31 @@ export const ProductList = () => {
 const { state, dispatch, filteredData} = useProductList();
 
   const getHandler = async () => {
-    dispatch({ type: LOADING_SPINNER });
+    dispatch({ type: LOADING_SPINNER });    
     try {
       const response = await axios.get("/api/products");
       dispatch({ type: LOADING_SPINNER });
       dispatch({ type: PRODUCT_LIST_DATA, payload: response.data.products })
     } catch (err) {
+      dispatch({ type: LOADING_SPINNER });
       console.log(err);
+    }
+  };
+  
+  const addToWishListHandler = async ({ item }) => {
+    try {
+      const config = {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      };
+      const data = {
+        product: item,
+      };
+      await axios.post("/api/user/wishlist", data, config);
+
+    } catch (err) {
+      console.log("err:- " + err);
     }
   };
 
@@ -32,7 +50,7 @@ useEffect(() => (async () => await getHandler())(),[]);
             <Loader />
           ) : (
             filteredData.map((data,index) => (
-              <ProductCard item={data} key={index}/>
+              <ProductCard item={data} key={index} clickHandler={addToWishListHandler}/>
             ))
           )}
         </div>
