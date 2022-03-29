@@ -51,8 +51,14 @@ hr {
 
 .product-unit {
   max-width: 300px;
-  box-shadow: var(--mild-shadow);
   padding: 2rem;
+  border: 0.5px solid var( --product-box-border); 
+}
+
+.product-unit:hover {
+  border: none;
+  box-shadow: var( --product-box-shadow)
+  
 }
 
 .product-unit-header {

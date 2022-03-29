@@ -19,7 +19,9 @@
   --gray-bold-border: #D4D4D4;
   --footer-bg-color: #FCD8C5;
   --category-border: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
-  --dark-mode: #151719
+  --dark-mode: #151719;
+  --product-box-border: #cbd5e1;
+  --product-box-shadow: 0px 1px 1px 1px #a7a7a7;
 }
 
 /* #0097a7 */
