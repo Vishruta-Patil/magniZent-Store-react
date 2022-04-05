@@ -6,6 +6,7 @@ import { useWishList } from "../../../context/wishlistContext";
 
 export const HorizontalCard = ({ item }) => {
   const { state, dispatch, cartQuantityHandler } = useWishList();
+  
   return (
     <div class="cart-display-container flex-column">
       <div class="item-container flex">
@@ -18,7 +19,7 @@ export const HorizontalCard = ({ item }) => {
             <div class="price-amount">₹{item.product_price}</div>
             <div class="duplicate-price-amount">₹3999</div>
           </div>
-          <div class="price-offer-cart">{item.product_offer} off</div>
+          <div class="price-offer-cart">{item.product_offer}% off</div>
           <div class="quantity-container flex">
             <p>Quantity:</p>
             <button

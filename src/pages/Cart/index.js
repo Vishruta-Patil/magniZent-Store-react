@@ -10,9 +10,12 @@ import {HorizontalCard} from "../../components/common/HorizontalCard";
 import { PriceDetails } from "../../components/Cart/priceDetails";
 
 export const Cart = () => {
-  const { state, dispatch } = useWishList();
+  const { state, dispatch, cartSummary } = useWishList();
 
   useEffect(() => getCartItems(dispatch), []);
+
+  const cartQuantity = cartSummary(state.cartData)
+    console.log(cartQuantity)
   
   return (
     <div>
@@ -21,9 +24,9 @@ export const Cart = () => {
       ) : (
         <div class="cart-hero-container">
          
-          <h2 class="cart-main-header">My Cart ({state.cartData.length})</h2>
+          <h2 class="cart-main-header">My Cart ({cartQuantity.cartQuant})</h2>
 
-          {state.cartData.length === 0 ? (
+          {cartQuantity.cartQuant === 0 ? (
             <EmptyBag name={"Cart"} img={emptyCart} />
           ) : (
             <div class="cart-management-box flex">

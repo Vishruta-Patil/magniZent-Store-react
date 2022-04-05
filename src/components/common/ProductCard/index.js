@@ -36,8 +36,7 @@ const ProductCard = ({ item, clickHandler, from, cartHandler }) => {
       />
       <div class="product-unit-header justify-between">
         <p class="name-product">{item.product_name}</p>
-
-        
+       
           {!inWishlist ? (
             <span className="material-icons wishlist-icon" onClick={() => addToWishListHandler({item}, dispatch)}> favorite </span>
           ) : (
@@ -48,7 +47,7 @@ const ProductCard = ({ item, clickHandler, from, cartHandler }) => {
 
       <p class="price">
         ₹{item.product_price}
-        <span class="price-offer">{item.product_offer} off</span>{" "}
+        <span class="price-offer">{item.product_offer}% off</span>{" "}
         {item?.info?.ratings}
       </p>
       <div class="btn-container flex product-unit-btn-container">

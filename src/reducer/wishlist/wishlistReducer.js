@@ -5,7 +5,6 @@ import {
   CART_DATA,
   CART_INCREMENT,
   CART_DECREMENT,
-  TOTAL_PRICE,
 } from "./wishlistConstants";
 
 export const wishlistReducer = (state, action) => {
@@ -38,22 +37,6 @@ export const wishlistReducer = (state, action) => {
         ...state,
         cartData: action.payload,
       };
-
-      case TOTAL_PRICE:
-        return {
-          ...state,   
-          priceDetails: {
-            ...state.priceDetails,
-            totalPrice: action.payload + state.priceDetails.totalPrice,
-            totalQuantity: action.quantity + state.priceDetails.totalQuantit
-          }
-        }
-      
-      case "CART_QUANTITY":
-        return {
-          ...state,
-          cartQuantity: action.payload
-      }
   }
 };
 
