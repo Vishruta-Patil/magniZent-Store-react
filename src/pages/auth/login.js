@@ -1,9 +1,7 @@
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useProductList } from "../../context/productListContext";
 import { User } from "../../context/userContext";
-import { USER_LOADING, LOGIN_STATUS } from "../../reducer/user/userConstants";
+import { login } from "../../utils/handler";
 
 export const LogIn = () => {
   const [credentails, setCredentials] = useState({});
@@ -11,28 +9,12 @@ export const LogIn = () => {
 
   let navigate = useNavigate();
 
-  const login = async (email, password) => {
-    try {
-      const response = await axios.post("/api/auth/login", {
-        email,
-        password,
-      });
-      localStorage.setItem("token", response.data.encodedToken);
-      navigate("/");
-      dispatch({ type: USER_LOADING });
-      dispatch({type: LOGIN_STATUS})
-      setTimeout(() => dispatch({ type: USER_LOADING }), 1000);
-    } catch (err) {
-      console.log("Error: ", err);
-    }
-  };
-
   const loginHandler = async () => {
-    await login(credentails.email, credentails.password);
+    await login(credentails.email, credentails.password, dispatch, navigate);
   };
 
   const guestCredentailsHandler = async () => {
-    await login("adarshbalika@gmail.com", "adarshBalika123");
+    await login("adarshbalika@gmail.com", "adarshBalika123", dispatch, navigate);
   };
 
   return (

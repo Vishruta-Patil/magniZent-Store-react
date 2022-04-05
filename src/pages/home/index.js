@@ -5,30 +5,13 @@ import ProductCard from "../../components/common/ProductCard";
 import topProductsData from "../../data/topProductsData";
 import Loader from "../../components/common/Loader";
 import { User } from "../../context/userContext";
-import axios from "axios";
+import { addToWishListHandler } from "../../utils/handler";
+import { useWishList } from "../../context/wishlistContext";
 
 export const Home = () => {
   const {state} = User()
-
-  const addToWishListHandler = async ({ item }) => {
-    try {
-      const config = {
-        headers: {
-          authorization: localStorage.getItem("token"),
-        },
-      };
-      const data = {
-        product: item,
-      };
-      await axios.post("/api/user/wishlist", data, config);
-      console.log("working from home")
-
-    } catch (err) {
-      console.log("err:- " + err);
-    }
-  };
-
-
+ const {dispatch} = useWishList()
+ 
   return (
     <div>
       {state.userLoading ?
@@ -44,14 +27,14 @@ export const Home = () => {
         </ContentTitle>
         <CategoryContainer />
       </div>
-
+ 
       <div class="top-products-container">
         <ContentTitle styles={"offer-header"}>
           MOST DAZZLING OFFERS
         </ContentTitle>
         <div class="product-container">
           {topProductsData.map(item => (
-            <ProductCard item={item} key={item._id} clickHandler={addToWishListHandler}/>
+            <ProductCard item={item} key={item._id} clickHandler={({item}) => addToWishListHandler({item})}/>
           ))}
         </div>
       </div>

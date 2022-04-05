@@ -1,6 +1,11 @@
 .product-unit-btn {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     flex-grow: 1;
+    gap: 1rem;
+    border: 1px solid var(--border);
+    padding: 7px;
+    font-weight: 300;
+
 }
 
 .product-unit-btn-container {

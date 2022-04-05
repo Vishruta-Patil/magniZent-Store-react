@@ -15,8 +15,7 @@
 }
 
 .product-unit {
-  box-shadow: var(--mild-shadow);
-  padding: 2rem;
+  padding: 1.5rem;
   max-width: 300px;
   flex-basis: 32%;
 }
