@@ -15,22 +15,21 @@ export const Cart = () => {
   useEffect(() => getCartItems(dispatch), []);
 
   const cartQuantity = cartSummary(state.cartData)
-    console.log(cartQuantity)
   
   return (
     <div>
       {state.wishListLoader ? (
         <Loader />
       ) : (
-        <div class="cart-hero-container">
+        <div className="cart-hero-container">
          
-          <h2 class="cart-main-header">My Cart ({cartQuantity.cartQuant})</h2>
+          <h2 className="cart-main-header">My Cart ({cartQuantity.cartQuant})</h2>
 
           {cartQuantity.cartQuant === 0 ? (
             <EmptyBag name={"Cart"} img={emptyCart} />
           ) : (
-            <div class="cart-management-box flex">
-              <div class="cart-display-container flex-column">
+            <div className="cart-management-box flex">
+              <div className="cart-display-container flex-column">
                 {state.cartData.map((item, index) => (
                   <HorizontalCard
                     item={item}

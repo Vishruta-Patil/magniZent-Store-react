@@ -28,14 +28,14 @@ const ProductCard = ({ item, clickHandler, from, cartHandler }) => {
   const inWishlist = inWishListHandler(item);
 
   return (
-    <div class="product-unit flex-column ">
+    <div className="product-unit flex-column ">
       <img
-        class="img-product justify-center"
+        className="img-product justify-center"
         src={item.img_url}
         alt={item.img_name}
       />
-      <div class="product-unit-header justify-between">
-        <p class="name-product">{item.product_name}</p>
+      <div className="product-unit-header justify-between">
+        <p className="name-product">{item.product_name}</p>
        
           {!inWishlist ? (
             <span className="material-icons wishlist-icon" onClick={() => addToWishListHandler({item}, dispatch)}> favorite </span>
@@ -45,19 +45,19 @@ const ProductCard = ({ item, clickHandler, from, cartHandler }) => {
         
       </div>
 
-      <p class="price">
+      <p className="price">
         ₹{item.product_price}
-        <span class="price-offer">{item.product_offer}% off</span>{" "}
+        <span className="price-offer">{item.product_offer}% off</span>{" "}
         {item?.info?.ratings}
       </p>
-      <div class="btn-container flex product-unit-btn-container">
+      <div className="btn-container flex product-unit-btn-container">
         {!inCart ? (
           <button
             onClick={() => addToCart(item, dispatch)}
             className="hero-btn product-unit-btn flex-center"
             style={{ fontWeight: 400 }}
           >
-            Add To Cart<span class="material-icons "> shopping_cart </span>
+            Add To Cart<span className="material-icons "> shopping_cart </span>
           </button>
         ) : (
           <button
@@ -65,7 +65,7 @@ const ProductCard = ({ item, clickHandler, from, cartHandler }) => {
             className="outline-btn product-unit-btn flex-center"
             style={{ fontWeight: 400 }}
           >
-            Go To Cart<span class="material-icons "> shopping_cart </span>
+            Go To Cart<span className="material-icons "> shopping_cart </span>
           </button>
         )}
       </div>

@@ -1,8 +1,8 @@
 import "./index.css";
 const Loader = () => {
   return (
-    <div class="flex-center">
-      <div class="loader">
+    <div className="flex-center">
+      <div className="loader">
         <span></span>
         <span></span>
         <span></span>

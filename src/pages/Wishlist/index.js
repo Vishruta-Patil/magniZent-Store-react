@@ -15,8 +15,8 @@ export const Wishlist = () => {
       {state.wishListLoader ? (
         <Loader />
       ) : (
-        <div class="wishlist-container">
-          <h2 class="header-wishlist">
+        <div className="wishlist-container">
+          <h2 className="header-wishlist">
             My Wishlist ({state.wishListData.length})
           </h2>
 
@@ -29,7 +29,7 @@ export const Wishlist = () => {
                 }
               />
             ) : (
-              <div class="wishlist-unit">
+              <div className="wishlist-unit">
                 {state.wishListData.map((data, index) => (
                   <ProductCard
                     item={data}

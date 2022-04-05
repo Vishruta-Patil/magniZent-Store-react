@@ -7,16 +7,16 @@ const CategoryContainer = () => {
   const { dispatch } = useProductList();
     return (
       <Link to="/product-list">
-        <div class="category-container">         
+        <div className="category-container">         
           {categoryData.map(item => (
-             <div class="category-unit flex-center" key={item?.id} onClick={() => {
+             <div className="category-unit flex-center" key={item?.id} onClick={() => {
               dispatch({
                 type: FILTER_BY_CATEGORY,
                 payload: item.img_name.toLowerCase(),
               })
             }}>
              <img src={item.img_url} alt={item.img_name} />
-             <p class="category-content">{item.img_name}</p>
+             <p className="category-content">{item.img_name}</p>
            </div>
           ))}
          

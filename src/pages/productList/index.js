@@ -13,10 +13,10 @@ export const ProductList = () => {
   useEffect(() => getProductList(dispatch), []);
 
   return (
-    <div class="product-list-container">
+    <div className="product-list-container">
       <Filter />
 
-      <div class="product-container">
+      <div className="product-container">
         {state.loading ? (
           <Loader />
         ) : (

@@ -5,7 +5,7 @@ import "./filter.css"
 const PriceRange = () => {
   const {state, dispatch} = useProductList()
   return (
-    <div class="filter-item align-center">
+    <div className="filter-item align-center">
       <input type="range" min={499} max={9999} step={1900} list="tickmarks" className="slider" value={state.priceRange} onChange={(e) => dispatch({type:FILTER_BY_PRICE_RANGE, payload: +e.target.value})}/>
       <datalist id="tickmarks">
         <option value="499"></option>

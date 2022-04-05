@@ -7,7 +7,7 @@ const Category = () => {
   return (
     <div>
       {categories.map((categoryName) => (
-        <div class="filter-item align-center" key={categoryName}>
+        <div className="filter-item align-center" key={categoryName}>
           <input
             type="checkbox"
             id={categoryName}

@@ -18,11 +18,11 @@ export const LogIn = () => {
   };
 
   return (
-    <div class="login-container flex-column">
-      <h2 class="main-header">LOGIN</h2>
+    <div className="login-container flex-column">
+      <h2 className="main-header">LOGIN</h2>
       <input
         type="email"
-        class="input-box"
+        className="input-box"
         placeholder="Enter your email"
         onChange={(e) => {
           setCredentials({ ...credentails, email: e.target.value });
@@ -30,26 +30,26 @@ export const LogIn = () => {
       />
       <input
         type="password"
-        class="input-box"
+        className="input-box"
         placeholder="Enter your password"
         onChange={(e) => {
           setCredentials({ ...credentails, password: e.target.value });
         }}
       />
-      <div class="terms-container flex">
+      <div className="terms-container flex">
         <input id="terms-input" type="checkbox" />{" "}
         <label htmlFor="terms-input">I accept all the terms and conditions</label>
       </div>
 
-      <button class="hero-btn" onClick={loginHandler}>
+      <button className="hero-btn" onClick={loginHandler}>
         Login
       </button>
-      <button class="outline-btn" onClick={guestCredentailsHandler}>
+      <button className="outline-btn" onClick={guestCredentailsHandler}>
         Login With Guest Credentials
       </button>
-      <p class="gen-msg">
+      <p className="gen-msg">
         Dont have an account,{" "}
-        <Link class="primary-color" to="/signin">
+        <Link className="primary-color" to="/signin">
           {" "}
           Sign In!
         </Link>
