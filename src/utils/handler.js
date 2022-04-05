@@ -66,12 +66,13 @@ export const getWishlistItems = async (dispatch) => {
   }
 };
 
-export const addToWishListHandler = async ({ item }) => {
+export const addToWishListHandler = async ({ item }, dispatch) => {
   try {
     const data = {
       product: item,
     };
     const response = await axios.post("/api/user/wishlist", data, config);
+    dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
   } catch (err) {
     console.log("error:- " + err);
   }
