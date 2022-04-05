@@ -4,7 +4,7 @@ const Sort = () => {
   const { state, dispatch } = useProductList();
   return (
     <div>
-      <div class="filter-item align-center">
+      <div className="filter-item align-center">
         <input
           type="radio"
           id="low-to-high"
@@ -17,7 +17,7 @@ const Sort = () => {
         <label htmlFor="low-to-high">Price - Low to High </label>
       </div>
       
-      <div class="filter-item align-center">
+      <div className="filter-item align-center">
         <input
           type="radio"
           id="high-to-low"

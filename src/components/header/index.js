@@ -20,92 +20,92 @@ export const Header = () => {
   };
 
   return (
-    <div class="header-container">
-      <div class="header">
-        <div class="logo">
-          <Link class="primary-color" to="/">
-            <h2 class="main-title">
-              magni<span class="bold-main-title">Z</span>ent{" "}
-              <span class="bold-main-title secondary-color"></span>
+    <div className="header-container">
+      <div className="header">
+        <div className="logo">
+          <Link className="primary-color" to="/">
+            <h2 className="main-title">
+              magni<span className="bold-main-title">Z</span>ent{" "}
+              <span className="bold-main-title secondary-color"></span>
             </h2>
           </Link>
         </div>
 
-        <div class="header-main-content">
-          <ul class="flex header-inner-container">
-            <Link class="secondary-color" to="/">
-              <li class="header-item">Home</li>
+        <div className="header-main-content">
+          <ul className="flex header-inner-container">
+            <Link className="secondary-color" to="/">
+              <li className="header-item">Home</li>
             </Link>
-            <Link class="secondary-color" to="/product-list">
-              <p class="header-item primary-color">Shop Now</p>
+            <Link className="secondary-color" to="/product-list">
+              <p className="header-item primary-color">Shop Now</p>
             </Link>
           </ul>
         </div>
 
-        <div class="search-bar-container search-bar-inline">
-          <div class="search-bar">
+        <div className="search-bar-container search-bar-inline">
+          <div className="search-bar">
             <input
-              class="input-search"
+              className="input-search"
               type="text"
               placeholder="Search your favorite brand and products"
             />
-            <span class="material-icons search-icon">search</span>
+            <span className="material-icons search-icon">search</span>
           </div>
         </div>
 
-        <div class="icon-container flex">
-          <div class="icon-unit">
+        <div className="icon-container flex">
+          <div className="icon-unit">
             {!state.loginStatus ? (
               <div
-                class="flex-column flex-center secondary-color header-icon"
+                className="flex-column flex-center secondary-color header-icon"
                 onClick={logInHandler}
               >
-                <span class="material-icons icon"> login </span>
+                <span className="material-icons icon"> login </span>
                 <p>Login</p>
               </div>
             ) : (
               <div
-                class="flex-column flex-center secondary-color header-icon"
+                className="flex-column flex-center secondary-color header-icon"
                 onClick={logOutHandler}
               >
-                <span class="material-icons icon"> logout</span>
+                <span className="material-icons icon"> logout</span>
                 <p>Logout</p>
               </div>
             )}
           </div>
-          <div class="icon-unit">
+          <div className="icon-unit">
             <Link
-              class="flex-column flex-center secondary-color header-icon"
+              className="flex-column flex-center secondary-color header-icon"
               to="/wishlist"
             >
-              <span class="material-icons icon"> favorite </span>
+              <span className="material-icons icon"> favorite </span>
               <p>WishList</p>
             </Link>
           </div>
-          <div class="icon-unit">
+          <div className="icon-unit">
             <Link
-              class="flex-column flex-center secondary-color header-icon"
+              className="flex-column flex-center secondary-color header-icon"
               to="/cart"
             >
-              <span class="material-icons icon"> shopping_cart </span>
+              <span className="material-icons icon"> shopping_cart </span>
               <p>Cart</p>
             </Link>
           </div>
         </div>
 
-        <span class="material-icons icon hide-menu menu-logo"> menu </span>
+        <span className="material-icons icon hide-menu menu-logo"> menu </span>
       </div>
 
-      <hr class="hr-line header-divider" />
+      <hr className="hr-line header-divider" />
 
-      <div class="search-bar-container search-bar-block">
-        <div class="search-bar flex">
+      <div className="search-bar-container search-bar-block">
+        <div className="search-bar flex">
           <input
-            class="input-search"
+            className="input-search"
             type="text"
             placeholder="Search your favorite brand and products"
           />
-          <span class="material-icons search-icon flex-center"> search </span>
+          <span className="material-icons search-icon flex-center"> search </span>
         </div>
       </div>
     </div>

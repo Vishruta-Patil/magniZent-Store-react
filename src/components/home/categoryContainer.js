@@ -1,17 +1,27 @@
 import categoryData from "../../data/categoryData"
 import { FILTER_BY_CATEGORY } from "../../reducer/productList/productConstants"
 import { useProductList } from "../../context/productListContext"
+import { Link } from "react-router-dom"
 
 const CategoryContainer = () => {
+  const { dispatch } = useProductList();
     return (
-        <div class="category-container">
+      <Link to="/product-list">
+        <div className="category-container">         
           {categoryData.map(item => (
-             <div class="category-unit flex-center" key={item?.id} >
+             <div className="category-unit flex-center" key={item?.id} onClick={() => {
+              dispatch({
+                type: FILTER_BY_CATEGORY,
+                payload: item.img_name.toLowerCase(),
+              })
+            }}>
              <img src={item.img_url} alt={item.img_name} />
-             <p class="category-content">{item.img_name}</p>
+             <p className="category-content">{item.img_name}</p>
            </div>
           ))}
+         
         </div>
+        </Link>
     )
 }
 

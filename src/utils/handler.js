@@ -5,7 +5,6 @@ import {
   WISHLIST_DATA,
   CART_INCREMENT,
   CART_DECREMENT,
-  TOTAL_PRICE
 } from "../reducer/wishlist/wishlistConstants";
 import {
   PRODUCT_LIST_DATA,
@@ -66,12 +65,13 @@ export const getWishlistItems = async (dispatch) => {
   }
 };
 
-export const addToWishListHandler = async ({ item }) => {
+export const addToWishListHandler = async ({ item }, dispatch) => {
   try {
     const data = {
       product: item,
     };
     const response = await axios.post("/api/user/wishlist", data, config);
+    dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
   } catch (err) {
     console.log("error:- " + err);
   }
@@ -110,7 +110,6 @@ export const addToCart = async (item,dispatch) => {
   }
     const response = await axios.post("/api/user/cart", data, config)
     dispatch({ type: CART_DATA, payload: response?.data?.cart });
-    dispatch({type: TOTAL_PRICE, payload: item.product_price, quantity:item.qty})
   } catch(err) {
 
     console.log("error: " + err)
@@ -130,9 +129,7 @@ export const cartQuantityHandler = async(item, actionType, dispatch) => {
   try {
     const {data} = await axios.post(`/api/user/cart/${item?._id}`, { action: { type: actionType }}, config)
     const {cart} = data
-    console.log(cart)
     dispatch(actionType === "increment" ? {type: CART_INCREMENT, payload: cart} :  {type: CART_DECREMENT, payload: cart})
-    dispatch({type: "CART_QUANTITY", payload:cart.qty})
   } catch(err) {
     console.log("error: " + err)
   }

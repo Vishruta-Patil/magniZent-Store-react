@@ -7,7 +7,7 @@ const Rating = () => {
   return (
     <div>
       {ratingData.map(item => (
-        <div class="filter-item align-center" key={item}>
+        <div className="filter-item align-center" key={item}>
           <input
             type="checkbox"
             id={`${item}-star`}
@@ -17,7 +17,7 @@ const Rating = () => {
             checked={state.ratingAmount === `${item}`}
           />
           <label htmlFor={`${item}-star`}>
-            {item} <i class="fas fa-star"></i> & above
+            {item} <i className="fas fa-star"></i> & above
           </label>
         </div>
       ))}  

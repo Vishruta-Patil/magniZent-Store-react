@@ -3,11 +3,11 @@ import footerSocialLinksData from "../../data/footerSocialLinksData"
 export const Footer = () => {
   return (
     <div>
-      <div class="cart-footer flex-center flex-column">
-        <p class="">Made with <span class="primary-color footer-symbol"> &lt;/&gt; </span> by <a
-          class="footer-linkedin-link" href="http://www.linkedin.com/in/vishruta-patil-30106b204">Vishruta Patil</a></p>
-        <div class="social-links-container">
-          <ul class="flex social-links-inner-container">
+      <div className="cart-footer flex-center flex-column">
+        <p className="">Made with <span className="primary-color footer-symbol"> &lt;/&gt; </span> by <a
+          className="footer-linkedin-link" href="http://www.linkedin.com/in/vishruta-patil-30106b204">Vishruta Patil</a></p>
+        <div className="social-links-container">
+          <ul className="flex social-links-inner-container">
             {
               footerSocialLinksData.map((item,index) => (
                 <li key={index}>
@@ -18,7 +18,7 @@ export const Footer = () => {
             }
           </ul>
         </div>
-        <p class="copywrite-footer">© 2022 || magniZent</p>
+        <p className="copywrite-footer">© 2022 || magniZent</p>
 
       </div>
     </div>

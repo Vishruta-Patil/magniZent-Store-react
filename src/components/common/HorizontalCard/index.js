@@ -6,38 +6,39 @@ import { useWishList } from "../../../context/wishlistContext";
 
 export const HorizontalCard = ({ item }) => {
   const { state, dispatch, cartQuantityHandler } = useWishList();
+  
   return (
-    <div class="cart-display-container flex-column">
-      <div class="item-container flex">
-        <div class="product-img-container">
-          <img class="product-img" src={item.img_url} alt={item.img_name} />
+    <div className="cart-display-container flex-column">
+      <div className="item-container flex">
+        <div className="product-img-container">
+          <img className="product-img" src={item.img_url} alt={item.img_name} />
         </div>
-        <div class="product-content-container flex-column">
-          <div class="product-cart-title">{item.product_name}</div>
-          <div class="price-tag flex">
-            <div class="price-amount">₹{item.product_price}</div>
-            <div class="duplicate-price-amount">₹3999</div>
+        <div className="product-content-container flex-column">
+          <div className="product-cart-title">{item.product_name}</div>
+          <div className="price-tag flex">
+            <div className="price-amount">₹{item.product_price}</div>
+            <div className="duplicate-price-amount">₹3999</div>
           </div>
-          <div class="price-offer-cart">{item.product_offer} off</div>
-          <div class="quantity-container flex">
+          <div className="price-offer-cart">{item.product_offer}% off</div>
+          <div className="quantity-container flex">
             <p>Quantity:</p>
             <button
-              class="quantity-btn"
+              className="quantity-btn"
               onClick={() => cartQuantityHandler(item, "increment", dispatch)}
             >
               +
             </button>
-            <div class="quantity-input flex-center">{item.qty}</div>
+            <div className="quantity-input flex-center">{item.qty}</div>
             {item.qty > 1 ? (
               <button
-                class="quantity-btn"
+                className="quantity-btn"
                 onClick={() => cartQuantityHandler(item, "decrement", dispatch)}
               >
                 -
               </button>
             ) : (
               <button
-                class="quantity-btn"
+                className="quantity-btn"
                 onClick={() => cartQuantityHandler(item, "decrement", dispatch)}
                 disabled
               >
@@ -46,13 +47,13 @@ export const HorizontalCard = ({ item }) => {
             ) }
           </div>
           <button
-            class="hero-btn remove-cart-btn"
+            className="hero-btn remove-cart-btn"
             onClick={() => deleteCartHandler(item, dispatch)}
           >
             Remove From Cart
           </button>
           <button
-            class="outline-btn add-wishlist-btn"
+            className="outline-btn add-wishlist-btn"
             onClick={() => addToWishListHandler({ item })}
           >
             Add to Wishlist

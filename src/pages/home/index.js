@@ -21,18 +21,18 @@ export const Home = () => {
       :
     <div>
       <Carousel />
-      <div class="prominent-category">
+      <div className="prominent-category">
         <ContentTitle styles={"offer-header offer-header-1"}>
           PROMINENT CATEGORY TO BAG
         </ContentTitle>
         <CategoryContainer />
       </div>
  
-      <div class="top-products-container">
+      <div className="top-products-container">
         <ContentTitle styles={"offer-header"}>
           MOST DAZZLING OFFERS
         </ContentTitle>
-        <div class="product-container">
+        <div className="product-container">
           {topProductsData.map(item => (
             <ProductCard item={item} key={item._id} clickHandler={({item}) => addToWishListHandler({item})}/>
           ))}
