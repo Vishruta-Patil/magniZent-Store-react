@@ -53,7 +53,7 @@ const ProductCard = ({ item, clickHandler, from, cartHandler }) => {
       <div className="btn-container flex product-unit-btn-container">
         {!inCart ? (
           <button
-            onClick={() => addToCart(item, dispatch)}
+            onClick={() => addToCart(item, dispatch, state)}
             className="hero-btn product-unit-btn flex-center"
             style={{ fontWeight: 400 }}
           >

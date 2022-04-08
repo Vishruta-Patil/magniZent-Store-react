@@ -7,7 +7,8 @@ const User = () => useContext(UserContext);
 const UserProvider = ({ children }) => {
     const initialValue = {
         userLoading: false,
-        loginStatus: localStorage.getItem("token") !== null
+        loginStatus: localStorage.getItem("token") !== null,
+        tokenAuth: ""
     }
   const [state, dispatch] = useReducer(userReducer, initialValue);
   return (

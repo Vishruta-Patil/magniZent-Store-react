@@ -15,10 +15,9 @@ import { USER_LOADING, LOGIN_STATUS } from "../reducer/user/userConstants";
 const encodedtoken = localStorage.getItem("token");
 const config = {
   headers: {
-    authorization: encodedtoken,
+    authorization: localStorage.getItem("token"),
   },
 };
-
 
 // Auth
 export const login = async (email, password, dispatch, navigate) => {
@@ -30,13 +29,28 @@ export const login = async (email, password, dispatch, navigate) => {
     localStorage.setItem("token", response.data.encodedToken);
     navigate("/");
     dispatch({ type: USER_LOADING });
-    dispatch({type: LOGIN_STATUS})
+    dispatch({ type: LOGIN_STATUS });
     setTimeout(() => dispatch({ type: USER_LOADING }), 1000);
   } catch (err) {
     console.log("Error: ", err);
   }
 };
 
+export const addToCart = async (item, dispatch) => {
+  try {
+    const data = {
+      product: item,
+    };
+    const response = await axios.post("/api/user/cart", data, {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    });
+    dispatch({ type: CART_DATA, payload: response?.data?.cart });
+  } catch (err) {
+    console.log("error: " + err.response.data);
+  }
+};
 
 // Product List
 export const getProductList = async (dispatch) => {
@@ -51,12 +65,15 @@ export const getProductList = async (dispatch) => {
   }
 };
 
-
 // Wishlist
 export const getWishlistItems = async (dispatch) => {
   dispatch({ type: WISHLIST_LOADER });
   try {
-    const response = await axios.get("/api/user/wishlist", config);
+    const response = await axios.get("/api/user/wishlist", {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    });
     dispatch({ type: WISHLIST_LOADER });
     dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
   } catch (err) {
@@ -70,7 +87,11 @@ export const addToWishListHandler = async ({ item }, dispatch) => {
     const data = {
       product: item,
     };
-    const response = await axios.post("/api/user/wishlist", data, config);
+    const response = await axios.post("/api/user/wishlist", data, {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    });
     dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
   } catch (err) {
     console.log("error:- " + err);
@@ -79,22 +100,26 @@ export const addToWishListHandler = async ({ item }, dispatch) => {
 
 export const deleteWishListHandler = async (dispatch, { item }) => {
   try {
-    const response = await axios.delete(
-      `/api/user/wishlist/${item._id}`,
-      config
-    )
+    const response = await axios.delete(`/api/user/wishlist/${item._id}`, {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    });
     dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
   } catch (err) {
     console.log("error:- " + err);
   }
 };
 
-
 // Cart
 export const getCartItems = async (dispatch) => {
   dispatch({ type: WISHLIST_LOADER });
   try {
-    const response = await axios.get("/api/user/cart", config);
+    const response = await axios.get("/api/user/cart", {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    });
     dispatch({ type: WISHLIST_LOADER });
     dispatch({ type: CART_DATA, payload: response.data.cart });
   } catch (err) {
@@ -103,35 +128,37 @@ export const getCartItems = async (dispatch) => {
   }
 };
 
-export const addToCart = async (item,dispatch) => {
-  try {
-  const data = {
-    product: item
-  }
-    const response = await axios.post("/api/user/cart", data, config)
-    dispatch({ type: CART_DATA, payload: response?.data?.cart });
-  } catch(err) {
-
-    console.log("error: " + err)
-  }
-}
-
 export const deleteCartHandler = async (item, dispatch) => {
   try {
-    const response = await axios.delete(`/api/user/cart/${item?._id}`, config)
-    dispatch({ type: CART_DATA, payload: response?.data?.cart })
-  } catch(err) {
-    console.log("error: " + err)
+    const response = await axios.delete(`/api/user/cart/${item?._id}`, {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    });
+    dispatch({ type: CART_DATA, payload: response?.data?.cart });
+  } catch (err) {
+    console.log("error: " + err);
   }
-}
+};
 
-export const cartQuantityHandler = async(item, actionType, dispatch) => {
+export const cartQuantityHandler = async (item, actionType, dispatch) => {
   try {
-    const {data} = await axios.post(`/api/user/cart/${item?._id}`, { action: { type: actionType }}, config)
-    const {cart} = data
-    dispatch(actionType === "increment" ? {type: CART_INCREMENT, payload: cart} :  {type: CART_DECREMENT, payload: cart})
-  } catch(err) {
-    console.log("error: " + err)
+    const { data } = await axios.post(
+      `/api/user/cart/${item?._id}`,
+      { action: { type: actionType } },
+      {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    const { cart } = data;
+    dispatch(
+      actionType === "increment"
+        ? { type: CART_INCREMENT, payload: cart }
+        : { type: CART_DECREMENT, payload: cart }
+    );
+  } catch (err) {
+    console.log("error: " + err);
   }
-}
-
+};

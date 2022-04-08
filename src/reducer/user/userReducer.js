@@ -1,4 +1,4 @@
-import {USER_LOADING, LOGIN_STATUS} from "./userConstants"
+import {USER_LOADING, LOGIN_STATUS, GET_TOKEN} from "./userConstants"
 
 export const userReducer = (state,action) => {
     switch (action.type) {
@@ -13,5 +13,10 @@ export const userReducer = (state,action) => {
                 // loginStatus: localStorage.getItem("token") !== null
                 loginStatus: !state.loginStatus
             }
+        case GET_TOKEN: 
+        return {
+            ...state,
+            tokenAuth: action.payload
+        }
     }
 }
