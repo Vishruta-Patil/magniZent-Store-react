@@ -32,12 +32,16 @@ export const login = async (email, password, dispatch, navigate) => {
     dispatch({ type: LOGIN_STATUS });
     setTimeout(() => dispatch({ type: USER_LOADING }), 1000);
   } catch (err) {
-    console.log("Error: ", err);
+    console.log("Error: ", err.response.data);
   }
 };
 
-export const addToCart = async (item, dispatch) => {
+export const addToCart = async (loginStatus, item, dispatch, navigate) => {
+  console.log("not working")
   try {
+    if(!localStorage.getItem("token")) {
+      navigate("/login")
+    }
     const data = {
       product: item,
     };
@@ -82,8 +86,11 @@ export const getWishlistItems = async (dispatch) => {
   }
 };
 
-export const addToWishListHandler = async ({ item }, dispatch) => {
+export const addToWishListHandler = async ({ item }, dispatch, navigate) => {
   try {
+    if(!localStorage.getItem("token")) {
+      navigate("/login")
+    }
     const data = {
       product: item,
     };
@@ -99,7 +106,9 @@ export const addToWishListHandler = async ({ item }, dispatch) => {
 };
 
 export const deleteWishListHandler = async (dispatch, { item }) => {
+  console.log("yui" + encodedtoken)
   try {
+    console.log("In wishlist delete")
     const response = await axios.delete(`/api/user/wishlist/${item._id}`, {
       headers: {
         authorization: localStorage.getItem("token"),

@@ -9,12 +9,12 @@ import { addToWishListHandler } from "../../utils/handler";
 import { useWishList } from "../../context/wishlistContext";
 
 export const Home = () => {
-  const {state} = User()
+  const {authState} = User()
  const {dispatch} = useWishList()
  
   return (
     <div>
-      {state.userLoading ?
+      {authState.userLoading ?
       <div> 
       <Loader />
       </div>

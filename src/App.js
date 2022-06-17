@@ -18,7 +18,6 @@ import "./styles/index.css";
 import { User } from "./context/userContext";
 
 function App() {
-  const {state} = User()
   const useAuth = () => {
     const user_data = localStorage.getItem("token");
     return user_data !== null;

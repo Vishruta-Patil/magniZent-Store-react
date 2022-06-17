@@ -5,16 +5,16 @@ import { login } from "../../utils/handler";
 
 export const LogIn = () => {
   const [credentails, setCredentials] = useState({});
-  const { state, dispatch } = User();
+  const { authDispatch } = User();
 
   let navigate = useNavigate();
 
   const loginHandler = async () => {
-    await login(credentails.email, credentails.password, dispatch, navigate);
+    await login(credentails.email, credentails.password, authDispatch, navigate);
   };
 
   const guestCredentailsHandler = async () => {
-    await login("adarshbalika@gmail.com", "adarshBalika123", dispatch, navigate);
+    await login("adarshbalika@gmail.com", "adarshBalika123", authDispatch, navigate);
   };
 
   return (

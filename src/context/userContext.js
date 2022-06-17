@@ -10,9 +10,9 @@ const UserProvider = ({ children }) => {
         loginStatus: localStorage.getItem("token") !== null,
         tokenAuth: ""
     }
-  const [state, dispatch] = useReducer(userReducer, initialValue);
+  const [authState, authDispatch] = useReducer(userReducer, initialValue);
   return (
-    <UserContext.Provider value={{ state, dispatch }}>
+    <UserContext.Provider value={{ authState, authDispatch}}>
       {children}
     </UserContext.Provider>
   );

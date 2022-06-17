@@ -3,10 +3,13 @@ import "./index.css";
 import { useWishList } from "../../../context/wishlistContext";
 import { addToCart, addToWishListHandler, deleteWishListHandler } from "../../../utils/handler";
 import { useNavigate } from "react-router";
+import { User } from "../../../context/userContext";
 
 const ProductCard = ({ item, clickHandler, from, cartHandler }) => {
   const { state, dispatch } = useWishList();
   const navigate = useNavigate();
+
+  const {loginStatus} = User()
 
 
   const inCartHandler = (product) => {
@@ -38,7 +41,7 @@ const ProductCard = ({ item, clickHandler, from, cartHandler }) => {
         <p className="name-product">{item.product_name}</p>
        
           {!inWishlist ? (
-            <span className="material-icons wishlist-icon" onClick={() => addToWishListHandler({item}, dispatch)}> favorite </span>
+            <span className="material-icons wishlist-icon" onClick={() => addToWishListHandler({item}, dispatch, navigate)}> favorite </span>
           ) : (
             <span className="material-icons wishlist-active" onClick={() => deleteWishListHandler(dispatch, {item})}> favorite </span>
           )}
@@ -53,7 +56,7 @@ const ProductCard = ({ item, clickHandler, from, cartHandler }) => {
       <div className="btn-container flex product-unit-btn-container">
         {!inCart ? (
           <button
-            onClick={() => addToCart(item, dispatch, state)}
+            onClick={() => addToCart(loginStatus, item, dispatch, navigate)}
             className="hero-btn product-unit-btn flex-center"
             style={{ fontWeight: 400 }}
           >
