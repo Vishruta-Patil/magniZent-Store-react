@@ -9,6 +9,7 @@ import {
 import {
   PRODUCT_LIST_DATA,
   LOADING_SPINNER,
+  GET_SINGLE_PRODUCT_DATA,
 } from "../reducer/productList/productConstants";
 import { USER_LOADING, LOGIN_STATUS } from "../reducer/user/userConstants";
 
@@ -68,6 +69,16 @@ export const getProductList = async (dispatch) => {
     console.log("error: ", err);
   }
 };
+
+export const getSingleProduct = async(id, dispatch) => {
+  try {
+    const response = await axios.get(`/api/products/${id}`)
+    dispatch({type: GET_SINGLE_PRODUCT_DATA, payload: response.data.product})
+    console.log(response)
+  } catch(err) {
+    console.log(err)
+  }
+}
 
 // Wishlist
 export const getWishlistItems = async (dispatch) => {

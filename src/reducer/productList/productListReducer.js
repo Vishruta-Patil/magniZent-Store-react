@@ -6,6 +6,7 @@ import {
   FILTER_BY_CATEGORY,
   FILTER_BY_PRICE_RANGE,
   CLEAR_ALL_FILTER,
+  GET_SINGLE_PRODUCT_DATA,
 } from "./productConstants";
 
 export const productReducer = (state, action) => {
@@ -76,6 +77,12 @@ export const productReducer = (state, action) => {
           home: false,
         },
       };
+
+      case GET_SINGLE_PRODUCT_DATA:
+        return {
+          ...state,
+          singleProduct: action.payload
+        }
 
     default:
       return state;

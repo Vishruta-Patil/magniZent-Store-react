@@ -1,6 +1,7 @@
 import { Header, Footer } from "./components";
 import {
   Home,
+  SingleProduct,
   ProductList,
   Wishlist,
   Cart,
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product-list" element={<ProductList />} />
+          <Route path="/product/:productId" element={<SingleProduct />} />
           <Route
             path="/cart"
             element={

@@ -24,6 +24,7 @@ const ProductProvider = ({ children }) => {
       home: false,
     },
     // category: {},
+    singleProduct: [],
   };
 
   const [state, dispatch] = useReducer(productReducer, initialValue);
