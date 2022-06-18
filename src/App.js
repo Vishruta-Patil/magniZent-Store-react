@@ -17,6 +17,7 @@ import Mockman from "mockman-js";
 import "./App.css";
 import "./styles/index.css";
 import { User } from "./context/userContext";
+import { NotFoundPage } from "./pages/notFoundPage";
 
 function App() {
   const useAuth = () => {
@@ -57,6 +58,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/mock" element={<Mockman />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         {/* {!state.userLoading ? <Footer />  : null} */}
     </div>

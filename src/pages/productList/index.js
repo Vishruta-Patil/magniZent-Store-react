@@ -24,7 +24,7 @@ export const ProductList = () => {
             <ProductCard
               item={data}
               key={index}
-              clickHandler={({item}) => addToWishListHandler({item})}
+              clickHandler={(item) => addToWishListHandler(item)}
             />
           ))
         )}

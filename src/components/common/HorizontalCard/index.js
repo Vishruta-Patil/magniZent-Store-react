@@ -75,7 +75,7 @@ export const HorizontalCard = ({ item }) => {
           {!inWishlist ? (
             <button
             className="outline-btn add-wishlist-btn"
-            onClick={() => addToWishListHandler({item}, dispatch, navigate)}
+            onClick={() => addToWishListHandler(item, dispatch, navigate)}
           >
             Add to Wishlist
           </button>

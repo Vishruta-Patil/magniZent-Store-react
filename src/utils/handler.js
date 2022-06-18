@@ -37,7 +37,7 @@ export const login = async (email, password, dispatch, navigate) => {
   }
 };
 
-export const addToCart = async (loginStatus, item, dispatch, navigate) => {
+export const addToCart = async (item, dispatch, navigate) => {
   console.log("not working")
   try {
     if(!localStorage.getItem("token")) {
@@ -74,7 +74,7 @@ export const getSingleProduct = async(id, dispatch) => {
   try {
     const response = await axios.get(`/api/products/${id}`)
     dispatch({type: GET_SINGLE_PRODUCT_DATA, payload: response.data.product})
-    console.log(response)
+    console.log(response.data.product)
   } catch(err) {
     console.log(err)
   }
@@ -97,7 +97,61 @@ export const getWishlistItems = async (dispatch) => {
   }
 };
 
-export const addToWishListHandler = async ({ item }, dispatch, navigate) => {
+
+  // used on product listing page, to like/unlike the product in wishlist
+  export const toggleWishlist = async (item, dispatch, navigate, setDisable, e, inWishlist) => {
+    e.preventDefault();
+    setDisable(true);
+    try {
+      const data = {
+        product: item,
+      };
+      if (!localStorage.getItem("token")) navigate("/login");
+      else {
+        const response = !inWishlist
+          ? await axios.post("/api/user/wishlist", data, {
+            headers: {
+              authorization: localStorage.getItem("token"),
+            },
+          })
+          : await axios.delete(`/api/user/wishlist/${item._id}`, {
+            headers: {
+              authorization: localStorage.getItem("token"),
+            },
+          })
+
+        dispatch({
+          type: WISHLIST_DATA,
+          payload: response.data.wishlist,
+        });
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setDisable(false);
+    }
+  };
+
+  export const deleteWishListHandler = async (dispatch, {item}) => {
+    try {
+      const response = await axios.delete(`/api/user/wishlist/${item._id}`, {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      });
+      dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
+    } catch (err) {
+      console.log("error:- " + err);
+    } 
+  };
+
+
+
+export const addToWishListHandler = async ( item , dispatch, navigate) => {
+  // doubt
+  // e.preventDefault();
+  // setWishlistLoader(true)
+  console.log("in api " + item)
   try {
     if(!localStorage.getItem("token")) {
       navigate("/login")
@@ -113,23 +167,13 @@ export const addToWishListHandler = async ({ item }, dispatch, navigate) => {
     dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
   } catch (err) {
     console.log("error:- " + err);
-  }
+  } 
+  // finally {
+  //   setWishlistLoader(false)
+  // }
 };
 
-export const deleteWishListHandler = async (dispatch, { item }) => {
-  console.log("yui" + encodedtoken)
-  try {
-    console.log("In wishlist delete")
-    const response = await axios.delete(`/api/user/wishlist/${item._id}`, {
-      headers: {
-        authorization: localStorage.getItem("token"),
-      },
-    });
-    dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
-  } catch (err) {
-    console.log("error:- " + err);
-  }
-};
+
 
 // Cart
 export const getCartItems = async (dispatch) => {

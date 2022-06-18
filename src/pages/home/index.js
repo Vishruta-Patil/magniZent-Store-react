@@ -34,7 +34,7 @@ export const Home = () => {
         </ContentTitle>
         <div className="product-container">
           {topProductsData.map(item => (
-            <ProductCard item={item} key={item._id} clickHandler={({item}) => addToWishListHandler({item})}/>
+            <ProductCard item={item} key={item._id} clickHandler={(item) => addToWishListHandler(item)}/>
           ))}
         </div>
       </div>
