@@ -38,7 +38,6 @@ export const login = async (email, password, dispatch, navigate) => {
 };
 
 export const addToCart = async (item, dispatch, navigate) => {
-  console.log("not working")
   try {
     if(!localStorage.getItem("token")) {
       navigate("/login")
@@ -74,7 +73,6 @@ export const getSingleProduct = async(id, dispatch) => {
   try {
     const response = await axios.get(`/api/products/${id}`)
     dispatch({type: GET_SINGLE_PRODUCT_DATA, payload: response.data.product})
-    console.log(response.data.product)
   } catch(err) {
     console.log(err)
   }
@@ -125,8 +123,8 @@ export const getWishlistItems = async (dispatch) => {
           payload: response.data.wishlist,
         });
       }
-    } catch (e) {
-      console.log(e)
+    } catch (err) {
+      console.log(err)
     } finally {
       setDisable(false);
     }
@@ -151,7 +149,6 @@ export const addToWishListHandler = async ( item , dispatch, navigate) => {
   // doubt
   // e.preventDefault();
   // setWishlistLoader(true)
-  console.log("in api " + item)
   try {
     if(!localStorage.getItem("token")) {
       navigate("/login")
