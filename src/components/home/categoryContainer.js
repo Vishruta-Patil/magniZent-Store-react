@@ -4,13 +4,13 @@ import { useProductList } from "../../context/productListContext"
 import { Link } from "react-router-dom"
 
 const CategoryContainer = () => {
-  const { dispatch } = useProductList();
+  const { productDispatch } = useProductList();
     return (
       <Link to="/product-list">
         <div className="category-container">         
           {categoryData.map(item => (
              <div className="category-unit flex-center" key={item?.id} onClick={() => {
-              dispatch({
+              productDispatch({
                 type: FILTER_BY_CATEGORY,
                 payload: item.img_name.toLowerCase(),
               })

@@ -27,12 +27,12 @@ const ProductProvider = ({ children }) => {
     singleProduct: [],
   };
 
-  const [state, dispatch] = useReducer(productReducer, initialValue);
+  const [productState, productDispatch] = useReducer(productReducer, initialValue);
 
-  const filteredData = composeFunc(state, filterByPriceRange, filterByCategory, filterByRating, sortByPrice)(state.productListData)
+  const filteredData = composeFunc(productState, filterByPriceRange, filterByCategory, filterByRating, sortByPrice)(productState.productListData)
 
   return (
-    <ProductListContext.Provider value={{ state, dispatch, filteredData }}>
+    <ProductListContext.Provider value={{ productState, productDispatch, filteredData }}>
       {children}
     </ProductListContext.Provider>
   );

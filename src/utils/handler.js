@@ -132,7 +132,7 @@ export const getWishlistItems = async (dispatch) => {
     }
   };
 
-  export const deleteWishListHandler = async (dispatch, {item}) => {
+  export const deleteWishListHandler = async (dispatch, item) => {
     try {
       const response = await axios.delete(`/api/user/wishlist/${item._id}`, {
         headers: {

@@ -6,12 +6,12 @@ import { useProductList } from "../../../context/productListContext"
 import {CLEAR_ALL_FILTER} from "../../../reducer/productList/productConstants"
 
 const Filter = () => {
-  const {dispatch} = useProductList()
+  const {productDispatch} = useProductList()
     return (
         <div className="filter-container">
           <div className="filter-header flex">
             <h3 className="primary-color">Filters</h3>
-            <p className="secondary-color clear-link" onClick={() => dispatch({type:CLEAR_ALL_FILTER})}>Clear</p>
+            <p className="secondary-color clear-link" onClick={() => productDispatch({type:CLEAR_ALL_FILTER})}>Clear</p>
           </div>
           <hr />
 

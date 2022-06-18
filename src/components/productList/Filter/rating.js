@@ -2,7 +2,7 @@ import { FILTER_BY_RATING } from "../../../reducer/productList/productConstants"
 import { useProductList } from "../../../context/productListContext";
 
 const Rating = () => {
-  const { state, dispatch } = useProductList();
+  const { productState, productDispatch } = useProductList();
   const ratingData = [4, 3, 2, 1];
   return (
     <div>
@@ -12,9 +12,9 @@ const Rating = () => {
             type="checkbox"
             id={`${item}-star`}
             onChange={() =>
-              dispatch({ type: FILTER_BY_RATING, payload: `${item}` })
+              productDispatch({ type: FILTER_BY_RATING, payload: `${item}` })
             }
-            checked={state.ratingAmount === `${item}`}
+            checked={productState.ratingAmount === `${item}`}
           />
           <label htmlFor={`${item}-star`}>
             {item} <i className="fas fa-star"></i> & above
