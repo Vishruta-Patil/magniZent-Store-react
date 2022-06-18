@@ -6,7 +6,7 @@ import EmptyBag from "../../components/common/EmptyBag";
 import { addToCart, getCartItems } from "../../utils/handler";
 import Loader from "../../components/common/Loader";
 import {HorizontalCard} from "../../components/common/HorizontalCard";
-import { PriceDetails } from "../../components/cart/priceDetails";
+import { PriceDetails } from "../../components/Cart/priceDetails";
 
 export const Cart = () => {
   const { state, dispatch, cartSummary } = useWishList();
