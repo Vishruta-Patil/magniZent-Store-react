@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import { LOGIN_STATUS, USER_LOADING } from "../../reducer/user/userConstants";
 import { User } from "../../context/userContext";
 import { useWishList } from "../../context/wishlistContext";
+import { useProductList } from "../../context/productListContext";
+import { GET_SEARCH_PRODUCTS } from "../../reducer/productList/productConstants";
 
 export const Header = () => {
   const { authState, authDispatch } = User();
@@ -10,6 +12,8 @@ export const Header = () => {
 
   const { state, cartSummary } = useWishList()
   const cartQuantity = cartSummary(state.cartData)
+
+  const {productDispatch} = useProductList()
 
   const logOutHandler = () => {
     localStorage.clear();
@@ -22,6 +26,11 @@ export const Header = () => {
   const logInHandler = () => {
     navigate("/login");
   };
+
+  const searchProductsHandler = (e) => {
+    if(window.location.pathname === "/") navigate("/product-list")
+    productDispatch({type: GET_SEARCH_PRODUCTS, payload: e.target.value})
+  }
 
   return (
     <div className="header-container">
@@ -52,6 +61,7 @@ export const Header = () => {
               className="input-search"
               type="text"
               placeholder="Search your favorite brand and products"
+              onChange={(e) => searchProductsHandler(e)}
             />
             <span className="material-icons search-icon">search</span>
           </div>

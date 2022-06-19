@@ -7,6 +7,7 @@ import {
   FILTER_BY_PRICE_RANGE,
   CLEAR_ALL_FILTER,
   GET_SINGLE_PRODUCT_DATA,
+  GET_SEARCH_PRODUCTS
 } from "./productConstants";
 
 export const productReducer = (state, action) => {
@@ -34,6 +35,12 @@ export const productReducer = (state, action) => {
         ...state,
         ratingAmount: action.payload,
       };
+
+      case GET_SEARCH_PRODUCTS:
+        return {
+          ...state,
+          searchProduct: action.payload
+        }
 
     case FILTER_BY_CATEGORY:
       return {
@@ -82,6 +89,12 @@ export const productReducer = (state, action) => {
         return {
           ...state,
           singleProduct: action.payload
+        }
+
+      case GET_SEARCH_PRODUCTS:
+        return {
+          ...state,
+          searchProduct: action.payload
         }
 
     default:

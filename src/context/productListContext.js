@@ -6,6 +6,7 @@ import {
   filterByRating,
   filterByCategory,
   filterByPriceRange,
+  searchProducts
 } from "../reducer/productList/helper";
 
 const ProductListContext = createContext();
@@ -23,16 +24,29 @@ const ProductProvider = ({ children }) => {
       jewellery: false,
       home: false,
     },
+    searchProduct: "",
     // category: {},
     singleProduct: [],
   };
 
-  const [productState, productDispatch] = useReducer(productReducer, initialValue);
+  const [productState, productDispatch] = useReducer(
+    productReducer,
+    initialValue
+  );
 
-  const filteredData = composeFunc(productState, filterByPriceRange, filterByCategory, filterByRating, sortByPrice)(productState.productListData)
+  const filteredData =  composeFunc(
+    productState,
+    filterByPriceRange,
+    filterByCategory,
+    filterByRating,
+    searchProducts,
+    sortByPrice
+  )(productState.productListData);
 
   return (
-    <ProductListContext.Provider value={{ productState, productDispatch, filteredData }}>
+    <ProductListContext.Provider
+      value={{ productState, productDispatch, filteredData }}
+    >
       {children}
     </ProductListContext.Provider>
   );

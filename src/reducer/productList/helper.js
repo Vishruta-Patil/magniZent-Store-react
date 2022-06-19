@@ -26,6 +26,10 @@ export const filterByCategory = (state, products) => {
       : products.filter(product => state.category[product.info.category])
 }
 
+export const searchProducts = (state, data) => {
+    return state.searchProduct === "" ? data : data.filter(item => item?.product_name.toLowerCase().includes(state.searchProduct))
+}
+
 //   export const filterByCategory = (state, products) => {
 //       console.log(state.category)
 //     return Object.keys(state.category).length === 0 ||
