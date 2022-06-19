@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 import { User } from "../../context/userContext";
 import { USER_LOADING, LOGIN_STATUS } from "../../reducer/user/userConstants"
+import { signInHandler } from "../../utils/handler";
 
 export const SignIn = () => {
   let navigate = useNavigate();
@@ -14,21 +15,7 @@ export const SignIn = () => {
     password: "",
   });
 
-  const signInHandler = async () => {
-    try {
-      const response = await axios.post("/api/auth/signup", {
-        email: credentials.email,
-        password: credentials.password,
-      });
-      localStorage.setItem("token", response.data.encodedToken);
-      navigate("/");
-      authDispatch({type: USER_LOADING})
-      authDispatch({type: LOGIN_STATUS})
-       setTimeout(() => authDispatch({type: USER_LOADING}), 500)
-    } catch (err) {
-      console.log("Error: ", err);
-    }
-  };
+  
 
   return (
     <div className="login-container signin-container flex-column">

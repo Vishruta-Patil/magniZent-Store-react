@@ -12,6 +12,7 @@ import {
   GET_SINGLE_PRODUCT_DATA,
 } from "../reducer/productList/productConstants";
 import { USER_LOADING, LOGIN_STATUS } from "../reducer/user/userConstants";
+import { toast } from "react-toastify";
 
 const encodedtoken = localStorage.getItem("token");
 const config = {
@@ -21,6 +22,23 @@ const config = {
 };
 
 // Auth
+export const signInHandler = async () => {
+  try {
+    const response = await axios.post("/api/auth/signup", {
+      email: credentials.email,
+      password: credentials.password,
+    });
+    localStorage.setItem("token", response.data.encodedToken);
+    navigate("/");
+    authDispatch({type: USER_LOADING})
+    authDispatch({type: LOGIN_STATUS})
+     setTimeout(() => authDispatch({type: USER_LOADING}), 500)
+     
+  } catch (err) {
+    console.log("Error: ", err);
+  }
+};
+
 export const login = async (email, password, dispatch, navigate) => {
   try {
     const response = await axios.post("/api/auth/login", {
@@ -32,9 +50,19 @@ export const login = async (email, password, dispatch, navigate) => {
     dispatch({ type: USER_LOADING });
     dispatch({ type: LOGIN_STATUS });
     setTimeout(() => dispatch({ type: USER_LOADING }), 1000);
+    toast.success("Logged In Sucessfully!")
   } catch (err) {
     console.log("Error: ", err.response.data);
   }
+};
+
+export const logOut = (authDispatch, navigate) => {
+  localStorage.clear();
+  authDispatch({ type: LOGIN_STATUS });
+  navigate("/");
+  authDispatch({ type: USER_LOADING});
+  setTimeout(() => authDispatch({ type: USER_LOADING }), 500);
+  toast.success("Logged out Sucessfully!")
 };
 
 export const addToCart = async (item, dispatch, navigate) => {
@@ -51,6 +79,7 @@ export const addToCart = async (item, dispatch, navigate) => {
       },
     });
     dispatch({ type: CART_DATA, payload: response?.data?.cart });
+    toast.success("Added to Cart")
   } catch (err) {
     console.log("error: " + err.response.data);
   }
@@ -122,6 +151,7 @@ export const getWishlistItems = async (dispatch) => {
           type: WISHLIST_DATA,
           payload: response.data.wishlist,
         });
+        !inWishlist ? toast.success("Added to Wishlist") : toast.success("Deleted from Wishlist")
       }
     } catch (err) {
       console.log(err)
@@ -138,6 +168,7 @@ export const getWishlistItems = async (dispatch) => {
         },
       });
       dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
+      toast.success("Deleted from Wishlist")
     } catch (err) {
       console.log("error:- " + err);
     } 
@@ -162,6 +193,7 @@ export const addToWishListHandler = async ( item , dispatch, navigate) => {
       },
     });
     dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
+    toast.success("Added to wishlist")
   } catch (err) {
     console.log("error:- " + err);
   } 
@@ -197,8 +229,9 @@ export const deleteCartHandler = async (item, dispatch) => {
       },
     });
     dispatch({ type: CART_DATA, payload: response?.data?.cart });
+    toast.success("Deleted from Cart")
   } catch (err) {
-    console.log("error: " + err);
+    console.log("error: " + err.message);
   }
 };
 

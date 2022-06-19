@@ -5,6 +5,7 @@ import { User } from "../../context/userContext";
 import { useWishList } from "../../context/wishlistContext";
 import { useProductList } from "../../context/productListContext";
 import { GET_SEARCH_PRODUCTS } from "../../reducer/productList/productConstants";
+import { logOut } from "../../utils/handler";
 
 export const Header = () => {
   const { authState, authDispatch } = User();
@@ -15,13 +16,6 @@ export const Header = () => {
 
   const {productDispatch} = useProductList()
 
-  const logOutHandler = () => {
-    localStorage.clear();
-    authDispatch({ type: LOGIN_STATUS });
-    navigate("/");
-    authDispatch({ type: USER_LOADING });
-    setTimeout(() => authDispatch({ type: USER_LOADING }), 500);
-  };
 
   const logInHandler = () => {
     navigate("/login");
@@ -80,7 +74,7 @@ export const Header = () => {
             ) : (
               <div
                 className="flex-column flex-center secondary-color header-icon"
-                onClick={logOutHandler}
+                onClick={() => logOut(authDispatch, navigate)}
               >
                 <div className="material-icons icon"> logout</div>
                 <p>Logout</p>
