@@ -8,7 +8,7 @@ import {
   SignIn,
   LogIn,
 } from "./pages/index";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Mockman from "mockman-js";
 import "./App.css";
 import "./styles/index.css";
@@ -18,6 +18,7 @@ import { ToastContainer, } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  const location = useLocation()
   const useAuth = () => {
     const user_data = localStorage.getItem("token");
     return user_data !== null;
@@ -25,7 +26,7 @@ function App() {
 
   const PrivateRoute = ({ children }) => {
     const auth = useAuth();
-    return auth ? children : <Navigate to="/login" />;
+    return auth ? children : <Navigate to="/login" state={{ location }} replace />
   };
 
   return (
@@ -71,6 +72,8 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {/* {!state.userLoading ? <Footer />  : null} */}
+      <Footer /> 
+      {/* doubt */}
     </div>
   );
 }

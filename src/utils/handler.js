@@ -22,24 +22,22 @@ const config = {
 };
 
 // Auth
-export const signInHandler = async () => {
+export const signInHandler = async (credentials, location, authDispatch, navigate) => {
   try {
     const response = await axios.post("/api/auth/signup", {
       email: credentials.email,
       password: credentials.password,
     });
     localStorage.setItem("token", response.data.encodedToken);
+    authDispatch({type: LOGIN_STATUS}) 
+    toast.success("Signed In Sucessfully!")
     navigate("/");
-    authDispatch({type: USER_LOADING})
-    authDispatch({type: LOGIN_STATUS})
-     setTimeout(() => authDispatch({type: USER_LOADING}), 500)
-     
   } catch (err) {
-    console.log("Error: ", err);
+    toast.error("Couldn't fetch User Account Data. Please try logging in again!");
   }
 };
 
-export const login = async (email, password, dispatch, navigate) => {
+export const login = async (email, password, dispatch, navigate, location) => {
   try {
     const response = await axios.post("/api/auth/login", {
       email,
@@ -47,10 +45,9 @@ export const login = async (email, password, dispatch, navigate) => {
     });
     localStorage.setItem("token", response.data.encodedToken);
     navigate("/");
-    dispatch({ type: USER_LOADING });
     dispatch({ type: LOGIN_STATUS });
-    setTimeout(() => dispatch({ type: USER_LOADING }), 1000);
     toast.success("Logged In Sucessfully!")
+    // if (location.state) navigate(location.state?.from?.pathname);
   } catch (err) {
     console.log("Error: ", err.response.data);
   }
@@ -60,8 +57,8 @@ export const logOut = (authDispatch, navigate) => {
   localStorage.clear();
   authDispatch({ type: LOGIN_STATUS });
   navigate("/");
-  authDispatch({ type: USER_LOADING});
-  setTimeout(() => authDispatch({ type: USER_LOADING }), 500);
+  // authDispatch({ type: USER_LOADING});
+  // setTimeout(() => authDispatch({ type: USER_LOADING }), 500);
   toast.success("Logged out Sucessfully!")
 };
 

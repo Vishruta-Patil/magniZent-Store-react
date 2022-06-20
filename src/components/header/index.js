@@ -22,7 +22,7 @@ export const Header = () => {
   };
 
   const searchProductsHandler = (e) => {
-    if(window.location.pathname === "/") navigate("/product-list")
+    if(window.location.pathname !== "/product-list") navigate("/product-list")
     productDispatch({type: GET_SEARCH_PRODUCTS, payload: e.target.value})
   }
 

@@ -11,7 +11,7 @@ import { addToWishListHandler } from "../../utils/handler";
 export const ProductList = () => {
   const { productState, productDispatch, filteredData } = useProductList();
   useEffect(() => getProductList(productDispatch), []);
-  console.log(filteredData)
+  
   return (
     <div className="product-list-container">
       <Filter />
