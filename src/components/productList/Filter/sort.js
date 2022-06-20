@@ -1,7 +1,7 @@
 import { useProductList } from "../../../context/productListContext";
 
 const Sort = () => {
-  const { state, dispatch } = useProductList();
+  const { productState, productDispatch } = useProductList();
   return (
     <div>
       <div className="filter-item align-center">
@@ -10,9 +10,9 @@ const Sort = () => {
           id="low-to-high"
           name="sort-by-price"
           onChange={() =>
-            dispatch({ type: "SORT_BY_PRICE", payload: "LOW_TO_HIGH" })
+            productDispatch({ type: "SORT_BY_PRICE", payload: "LOW_TO_HIGH" })
           }
-          checked={state.sortDir === "LOW_TO_HIGH"}
+          checked={productState.sortDir === "LOW_TO_HIGH"}
         />
         <label htmlFor="low-to-high">Price - Low to High </label>
       </div>
@@ -23,9 +23,9 @@ const Sort = () => {
           id="high-to-low"
           name="sort-by-price"
           onChange={() =>
-            dispatch({ type: "SORT_BY_PRICE", payload: "HIGH_TO_LOW" })
+            productDispatch({ type: "SORT_BY_PRICE", payload: "HIGH_TO_LOW" })
           }
-          checked={state.sortDir === "HIGH_TO_LOW"}
+          checked={productState.sortDir === "HIGH_TO_LOW"}
         />
         <label htmlFor="high-to-low">Price - High to Low</label>
       </div>

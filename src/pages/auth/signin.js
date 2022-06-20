@@ -7,7 +7,7 @@ import { USER_LOADING, LOGIN_STATUS } from "../../reducer/user/userConstants"
 
 export const SignIn = () => {
   let navigate = useNavigate();
-  const { state, dispatch } = User();
+  const { authDispatch } = User();
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -22,9 +22,9 @@ export const SignIn = () => {
       });
       localStorage.setItem("token", response.data.encodedToken);
       navigate("/");
-      dispatch({type: USER_LOADING})
-      dispatch({type: LOGIN_STATUS})
-       setTimeout(() => dispatch({type: USER_LOADING}), 500)
+      authDispatch({type: USER_LOADING})
+      authDispatch({type: LOGIN_STATUS})
+       setTimeout(() => authDispatch({type: USER_LOADING}), 500)
     } catch (err) {
       console.log("Error: ", err);
     }

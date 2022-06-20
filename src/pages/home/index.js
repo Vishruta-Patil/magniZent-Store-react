@@ -9,12 +9,12 @@ import { addToWishListHandler } from "../../utils/handler";
 import { useWishList } from "../../context/wishlistContext";
 
 export const Home = () => {
-  const {state} = User()
+  const {authState} = User()
  const {dispatch} = useWishList()
  
   return (
     <div>
-      {state.userLoading ?
+      {authState.userLoading ?
       <div> 
       <Loader />
       </div>
@@ -34,7 +34,7 @@ export const Home = () => {
         </ContentTitle>
         <div className="product-container">
           {topProductsData.map(item => (
-            <ProductCard item={item} key={item._id} clickHandler={({item}) => addToWishListHandler({item})}/>
+            <ProductCard item={item} key={item._id} clickHandler={(item) => addToWishListHandler(item)}/>
           ))}
         </div>
       </div>

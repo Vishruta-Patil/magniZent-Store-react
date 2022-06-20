@@ -2,17 +2,21 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { LOGIN_STATUS, USER_LOADING } from "../../reducer/user/userConstants";
 import { User } from "../../context/userContext";
+import { useWishList } from "../../context/wishlistContext";
 
 export const Header = () => {
-  const { state, dispatch } = User();
+  const { authState, authDispatch } = User();
   const navigate = useNavigate();
+
+  const { state, cartSummary } = useWishList()
+  const cartQuantity = cartSummary(state.cartData)
 
   const logOutHandler = () => {
     localStorage.clear();
-    dispatch({ type: LOGIN_STATUS });
+    authDispatch({ type: LOGIN_STATUS });
     navigate("/");
-    dispatch({ type: USER_LOADING });
-    setTimeout(() => dispatch({ type: USER_LOADING }), 500);
+    authDispatch({ type: USER_LOADING });
+    setTimeout(() => authDispatch({ type: USER_LOADING }), 500);
   };
 
   const logInHandler = () => {
@@ -55,12 +59,12 @@ export const Header = () => {
 
         <div className="icon-container flex">
           <div className="icon-unit">
-            {!state.loginStatus ? (
+            {!authState.loginStatus ? (
               <div
                 className="flex-column flex-center secondary-color header-icon"
                 onClick={logInHandler}
               >
-                <span className="material-icons icon"> login </span>
+                <div className="material-icons icon"> login</div>
                 <p>Login</p>
               </div>
             ) : (
@@ -68,7 +72,7 @@ export const Header = () => {
                 className="flex-column flex-center secondary-color header-icon"
                 onClick={logOutHandler}
               >
-                <span className="material-icons icon"> logout</span>
+                <div className="material-icons icon"> logout</div>
                 <p>Logout</p>
               </div>
             )}
@@ -78,7 +82,11 @@ export const Header = () => {
               className="flex-column flex-center secondary-color header-icon"
               to="/wishlist"
             >
-              <span className="material-icons icon"> favorite </span>
+              <div className="material-icons icon badge-icons">
+                {" "}
+                favorite
+                <span class="flex-container icon-badge">{state.wishListData.length}</span>
+              </div>
               <p>WishList</p>
             </Link>
           </div>
@@ -87,7 +95,11 @@ export const Header = () => {
               className="flex-column flex-center secondary-color header-icon"
               to="/cart"
             >
-              <span className="material-icons icon"> shopping_cart </span>
+              <div className="material-icons icon badge-icons">
+                {" "}
+                shopping_cart
+                <span class="flex-container icon-badge">{cartQuantity.cartQuant}</span>
+              </div>
               <p>Cart</p>
             </Link>
           </div>
@@ -105,7 +117,10 @@ export const Header = () => {
             type="text"
             placeholder="Search your favorite brand and products"
           />
-          <span className="material-icons search-icon flex-center"> search </span>
+          <span className="material-icons search-icon flex-center">
+            {" "}
+            search{" "}
+          </span>
         </div>
       </div>
     </div>

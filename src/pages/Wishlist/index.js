@@ -5,6 +5,7 @@ import ProductCard from "../../components/common/ProductCard";
 import Loader from "../../components/common/Loader";
 import EmptyBag from "../../components/common/EmptyBag";
 import { getWishlistItems, deleteWishListHandler } from "../../utils/handler";
+import { EMPTY_BAG } from "../../reducer/wishlist/wishlistConstants";
 
 export const Wishlist = () => {
   const { state, dispatch } = useWishList();
@@ -24,9 +25,7 @@ export const Wishlist = () => {
             {state.wishListData.length === 0 ? (
               <EmptyBag
                 name={"Wishlist"}
-                img={
-                  "https://res.cloudinary.com/debanftke/image/upload/v1648206283/wishlist_empty_pcbldx.jpg"
-                }
+                img={EMPTY_BAG}
               />
             ) : (
               <div className="wishlist-unit">

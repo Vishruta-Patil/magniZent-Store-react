@@ -1,11 +1,24 @@
 import {
   deleteCartHandler,
   addToWishListHandler,
+  deleteWishListHandler
 } from "../../../utils/handler";
 import { useWishList } from "../../../context/wishlistContext";
+import { useNavigate } from "react-router";
 
 export const HorizontalCard = ({ item }) => {
+  const navigate = useNavigate()
   const { state, dispatch, cartQuantityHandler } = useWishList();
+
+  const inWishListHandler = (product) => {
+    const isWishlist = state.wishListData.find(
+      (item) => item._id === product._id
+    );
+    if (isWishlist) return true;
+    else return false;
+  };
+
+  const inWishlist = inWishListHandler(item);
   
   return (
     <div className="cart-display-container flex-column">
@@ -52,12 +65,24 @@ export const HorizontalCard = ({ item }) => {
           >
             Remove From Cart
           </button>
-          <button
+          
+          {!inWishlist ? (
+            <button
             className="outline-btn add-wishlist-btn"
-            onClick={() => addToWishListHandler({ item })}
+            onClick={() => addToWishListHandler(item, dispatch, navigate)}
           >
             Add to Wishlist
           </button>
+          ) : (
+            <button
+            className="outline-btn add-wishlist-btn"
+            onClick={() => deleteWishListHandler(dispatch, {item})}
+          >
+            Delete to Wishlist
+          </button>
+            
+          )}
+
         </div>
       </div>
     </div>

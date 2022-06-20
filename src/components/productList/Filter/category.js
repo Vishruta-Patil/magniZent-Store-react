@@ -2,7 +2,7 @@ import { useProductList } from "../../../context/productListContext";
 import { FILTER_BY_CATEGORY } from "../../../reducer/productList/productConstants";
 
 const Category = () => {
-  const { state, dispatch } = useProductList();
+  const { productState, productDispatch } = useProductList();
   const categories = ["Fashion", "Jewellery", "Home"];
   return (
     <div>
@@ -11,9 +11,9 @@ const Category = () => {
           <input
             type="checkbox"
             id={categoryName}
-            checked={state.category[categoryName.toLowerCase()]}
+            checked={productState.category[categoryName.toLowerCase()]}
             onChange={() =>
-              dispatch({
+              productDispatch({
                 type: FILTER_BY_CATEGORY,
                 payload: categoryName.toLowerCase(),  // {categoryName}
               })

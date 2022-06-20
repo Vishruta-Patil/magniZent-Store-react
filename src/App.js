@@ -1,6 +1,7 @@
 import { Header, Footer } from "./components";
 import {
   Home,
+  SingleProduct,
   ProductList,
   Wishlist,
   Cart,
@@ -16,9 +17,9 @@ import Mockman from "mockman-js";
 import "./App.css";
 import "./styles/index.css";
 import { User } from "./context/userContext";
+import { NotFoundPage } from "./pages/notFoundPage";
 
 function App() {
-  const {state} = User()
   const useAuth = () => {
     const user_data = localStorage.getItem("token");
     return user_data !== null;
@@ -35,6 +36,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product-list" element={<ProductList />} />
+          <Route path="/product/:productId" element={<SingleProduct />} />
           <Route
             path="/cart"
             element={
@@ -56,6 +58,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/mock" element={<Mockman />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         {/* {!state.userLoading ? <Footer />  : null} */}
     </div>

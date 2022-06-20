@@ -9,22 +9,22 @@ import { addToWishListHandler } from "../../utils/handler";
 
 
 export const ProductList = () => {
-  const { state, dispatch, filteredData } = useProductList();
-  useEffect(() => getProductList(dispatch), []);
+  const { productState, productDispatch, filteredData } = useProductList();
+  useEffect(() => getProductList(productDispatch), []);
 
   return (
     <div className="product-list-container">
       <Filter />
 
       <div className="product-container">
-        {state.loading ? (
+        {productState.loading ? (
           <Loader />
         ) : (
           filteredData.map((data, index) => (
             <ProductCard
               item={data}
               key={index}
-              clickHandler={({item}) => addToWishListHandler({item})}
+              clickHandler={(item) => addToWishListHandler(item)}
             />
           ))
         )}

@@ -1,0 +1,22 @@
+.single-product-cart-title {
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.single-product-img-container {
+    max-width: 35rem;
+  }
+
+.price-section {
+    font-size: 2rem;
+    margin: 1rem 0;
+    justify-content: space-evenly;
+}
+
+.single-product-hero-btn {
+    background-color: var(--primary-color);
+}
+
+.single-product-outline-btn {
+    border: 1px solid var(--primary-color);
+}
