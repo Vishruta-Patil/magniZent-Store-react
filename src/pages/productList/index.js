@@ -11,7 +11,7 @@ import { addToWishListHandler } from "../../utils/handler";
 export const ProductList = () => {
   const { productState, productDispatch, filteredData } = useProductList();
   useEffect(() => getProductList(productDispatch), []);
-
+  
   return (
     <div className="product-list-container">
       <Filter />
@@ -20,6 +20,7 @@ export const ProductList = () => {
         {productState.loading ? (
           <Loader />
         ) : (
+          filteredData.length === 0 ? <h2>No products found</h2> :
           filteredData.map((data, index) => (
             <ProductCard
               item={data}

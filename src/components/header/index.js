@@ -3,6 +3,9 @@ import { useNavigate } from "react-router";
 import { LOGIN_STATUS, USER_LOADING } from "../../reducer/user/userConstants";
 import { User } from "../../context/userContext";
 import { useWishList } from "../../context/wishlistContext";
+import { useProductList } from "../../context/productListContext";
+import { GET_SEARCH_PRODUCTS } from "../../reducer/productList/productConstants";
+import { logOut } from "../../utils/handler";
 
 export const Header = () => {
   const { authState, authDispatch } = User();
@@ -11,17 +14,17 @@ export const Header = () => {
   const { state, cartSummary } = useWishList()
   const cartQuantity = cartSummary(state.cartData)
 
-  const logOutHandler = () => {
-    localStorage.clear();
-    authDispatch({ type: LOGIN_STATUS });
-    navigate("/");
-    authDispatch({ type: USER_LOADING });
-    setTimeout(() => authDispatch({ type: USER_LOADING }), 500);
-  };
+  const {productDispatch} = useProductList()
+
 
   const logInHandler = () => {
     navigate("/login");
   };
+
+  const searchProductsHandler = (e) => {
+    if(window.location.pathname !== "/product-list") navigate("/product-list")
+    productDispatch({type: GET_SEARCH_PRODUCTS, payload: e.target.value})
+  }
 
   return (
     <div className="header-container">
@@ -52,6 +55,7 @@ export const Header = () => {
               className="input-search"
               type="text"
               placeholder="Search your favorite brand and products"
+              onChange={(e) => searchProductsHandler(e)}
             />
             <span className="material-icons search-icon">search</span>
           </div>
@@ -70,7 +74,7 @@ export const Header = () => {
             ) : (
               <div
                 className="flex-column flex-center secondary-color header-icon"
-                onClick={logOutHandler}
+                onClick={() => logOut(authDispatch, navigate)}
               >
                 <div className="material-icons icon"> logout</div>
                 <p>Logout</p>
