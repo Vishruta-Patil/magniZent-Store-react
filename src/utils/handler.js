@@ -86,18 +86,19 @@ export const addToCart = async (item, dispatch, navigate) => {
 export const getProductList = async (dispatch) => {
   dispatch({ type: LOADING_SPINNER });
   try {
-    const response = await axios.get("/api/products");
+    const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/products`);
     dispatch({ type: LOADING_SPINNER });
     dispatch({ type: PRODUCT_LIST_DATA, payload: response.data.products });
+    console.log(response)
   } catch (err) {
     dispatch({ type: LOADING_SPINNER });
-    console.log("error: ", err);
+    console.log("error: ", err.message);
   }
 };
 
 export const getSingleProduct = async(id, dispatch) => {
   try {
-    const response = await axios.get(`/api/products/${id}`)
+    const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/products/${id}`)
     dispatch({type: GET_SINGLE_PRODUCT_DATA, payload: response.data.product})
   } catch(err) {
     console.log(err)

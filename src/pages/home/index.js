@@ -5,12 +5,18 @@ import ProductCard from "../../components/common/ProductCard";
 import topProductsData from "../../data/topProductsData";
 import Loader from "../../components/common/Loader";
 import { User } from "../../context/userContext";
-import { addToWishListHandler } from "../../utils/handler";
+import { addToWishListHandler, getProductList } from "../../utils/handler";
 import { useWishList } from "../../context/wishlistContext";
+import { useProductList } from "../../context/productListContext";
+import { useEffect } from "react";
 
 export const Home = () => {
   const {authState} = User()
  const {dispatch} = useWishList()
+
+ const { productState, productDispatch, filteredData } = useProductList();
+  useEffect(() => getProductList(productDispatch), []);
+ console.log(productState?.productListData)
  
   return (
     <div>
