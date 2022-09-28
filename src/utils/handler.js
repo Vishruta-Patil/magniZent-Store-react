@@ -24,32 +24,34 @@ const config = {
 // Auth
 export const signInHandler = async (credentials, location, authDispatch, navigate) => {
   try {
-    const response = await axios.post("/api/auth/signup", {
+    const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/signin`, {
+      name: credentials.name,
       email: credentials.email,
       password: credentials.password,
     });
-    localStorage.setItem("token", response.data.encodedToken);
+    navigate("/");
+    localStorage.setItem("token", response.data.token);
     authDispatch({type: LOGIN_STATUS}) 
     toast.success("Signed In Sucessfully!")
-    navigate("/");
+    
   } catch (err) {
+    console.log(err.response)
     toast.error("Couldn't fetch User Account Data. Please try logging in again!");
   }
 };
 
 export const login = async (email, password, dispatch, navigate, location) => {
   try {
-    const response = await axios.post("/api/auth/login", {
+    const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/login`, {
       email,
       password,
-    });
-    localStorage.setItem("token", response.data.encodedToken);
+    })
+    localStorage.setItem("token", response.data.token);
     navigate("/");
     dispatch({ type: LOGIN_STATUS });
     toast.success("Logged In Sucessfully!")
-    // if (location.state) navigate(location.state?.from?.pathname);
   } catch (err) {
-    console.log("Error: ", err.response.data);
+    console.log("Error: ", err?.response);
   }
 };
 
@@ -89,7 +91,6 @@ export const getProductList = async (dispatch) => {
     const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/products`);
     dispatch({ type: LOADING_SPINNER });
     dispatch({ type: PRODUCT_LIST_DATA, payload: response.data.products });
-    console.log(response)
   } catch (err) {
     dispatch({ type: LOADING_SPINNER });
     console.log("error: ", err.message);

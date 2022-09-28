@@ -4,14 +4,15 @@ import { User } from "../../context/userContext";
 import { login } from "../../utils/handler";
 
 export const LogIn = () => {
-  const [credentails, setCredentials] = useState({});
+  const [credentails, setCredentials] = useState({email:"", password:""});
   const { authDispatch } = User();
 
   let navigate = useNavigate();
   let location = useLocation();
 
-  const loginHandler = async () => {
-    await login(
+  const loginHandler = async (e) => {
+    e.preventDefault()
+     login(
       credentails.email,
       credentails.password,
       authDispatch,
@@ -20,10 +21,12 @@ export const LogIn = () => {
     );
   };
 
-  const guestCredentailsHandler = async () => {
+  const guestCredentailsHandler = async (e) => {
+    e.preventDefault()
+    setCredentials({email:"test123@gmail.com", password: "test123"})
     await login(
-      "adarshbalika@gmail.com",
-      "adarshBalika123",
+      "test123@gmail.com",
+      "test123",
       authDispatch,
       navigate,
       location
@@ -41,22 +44,24 @@ export const LogIn = () => {
         onChange={(e) => {
           setCredentials({ ...credentails, email: e.target.value });
         }}
+        value={credentails.email}
       />
       <input
-        type="password"
+        // type="password"
         className="input-box"
         placeholder="Enter your password"
         required
         onChange={(e) => {
           setCredentials({ ...credentails, password: e.target.value });
         }}
+        value={credentails.password}
       />
-      <div className="terms-container flex">
+      {/* <div className="terms-container flex">
         <input id="terms-input" type="checkbox" required />{" "}
         <label htmlFor="terms-input">
           I accept all the terms and conditions
         </label>
-      </div>
+      </div> */}
 
       <button className="hero-btn" onClick={loginHandler}>
         Login

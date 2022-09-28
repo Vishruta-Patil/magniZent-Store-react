@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router";
 import { User } from "../../context/userContext";
-import { USER_LOADING, LOGIN_STATUS } from "../../reducer/user/userConstants"
+import { USER_LOADING, LOGIN_STATUS } from "../../reducer/user/userConstants";
 import { signInHandler } from "../../utils/handler";
 
 export const SignIn = () => {
   let navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   const { authDispatch } = User();
 
   const [credentials, setCredentials] = useState({
+    name: "",
     email: "",
     password: "",
   });
-
 
   return (
     <form className="login-container signin-container flex-column">
@@ -23,7 +23,15 @@ export const SignIn = () => {
       <p className="top-msg gen-msg">
         Looks like you are new!! Please fill in the information below.
       </p>
-      {/* <input type="text" className="input-box" placeholder="Enter your name" /> */}
+      <input
+        type="text"
+        className="input-box"
+        placeholder="Enter your name"
+        required
+        onChange={(e) =>
+          setCredentials({ ...credentials, name: e.target.value })
+        }
+      />
       <input
         type="email"
         className="input-box"
@@ -48,12 +56,20 @@ export const SignIn = () => {
           placeholder="Confirm your password"
         /> */}
 
-      <div className="terms-container flex">
-        <input id="terms-input" type="checkbox" required/>{" "}
-        <label htmlFor="terms-input">I accept all the terms and conditions</label>
-      </div>
+      {/* <div className="terms-container flex">
+        <input id="terms-input" type="checkbox" required />{" "}
+        <label htmlFor="terms-input">
+          I accept all the terms and conditions
+        </label>
+      </div> */}
 
-      <button className="hero-btn" onClick={() => signInHandler(credentials, location, authDispatch, navigate)}>
+      <button
+        className="hero-btn"
+        onClick={(e) => {
+          e.preventDefault();
+          signInHandler(credentials, location, authDispatch, navigate);
+        }}
+      >
         Sign In
       </button>
       <p className="gen-msg">
