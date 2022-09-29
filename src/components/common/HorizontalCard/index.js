@@ -11,7 +11,7 @@ export const HorizontalCard = ({ item }) => {
   const { state, dispatch, cartQuantityHandler } = useWishList();
 
   const inWishListHandler = (product) => {
-    const isWishlist = state.wishListData.find(
+    const isWishlist = state?.wishListData?.find(
       (item) => item._id === product._id
     );
     if (isWishlist) return true;

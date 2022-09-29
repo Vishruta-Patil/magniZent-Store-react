@@ -4,13 +4,16 @@ import Loader from "../../components/common/Loader";
 import ProductCard from "../../components/common/ProductCard";
 import Filter from "../../components/productList/Filter";
 import { useProductList } from "../../context/productListContext";
-import { getProductList } from "../../utils/handler";
+import { useWishList } from "../../context/wishlistContext";
+import { getProductList, getWishlistItems } from "../../utils/handler";
 import { addToWishListHandler } from "../../utils/handler";
 
 
 export const ProductList = () => {
   const { productState, productDispatch, filteredData } = useProductList();
+  const {dispatch} = useWishList()
   useEffect(() => getProductList(productDispatch), []);
+  useEffect(() => getWishlistItems(dispatch), []);
   
   return (
     <div className="product-list-container">

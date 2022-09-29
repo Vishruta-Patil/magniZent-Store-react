@@ -2,9 +2,11 @@ import axios from "axios";
 import {
   WISHLIST_LOADER,
   CART_DATA,
-  WISHLIST_DATA,
   CART_INCREMENT,
   CART_DECREMENT,
+  GET_WISHLIST,
+  REMOVE_FROM_WISHLIST,
+  ADD_TO_WISHLIST,
 } from "../reducer/wishlist/wishlistConstants";
 import {
   PRODUCT_LIST_DATA,
@@ -14,42 +16,47 @@ import {
 import { USER_LOADING, LOGIN_STATUS } from "../reducer/user/userConstants";
 import { toast } from "react-toastify";
 
-const encodedtoken = localStorage.getItem("token");
-const config = {
-  headers: {
-    authorization: localStorage.getItem("token"),
-  },
-};
-
 // Auth
-export const signInHandler = async (credentials, location, authDispatch, navigate) => {
+export const signInHandler = async (
+  credentials,
+  location,
+  authDispatch,
+  navigate
+) => {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/signin`, {
-      name: credentials.name,
-      email: credentials.email,
-      password: credentials.password,
-    });
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_ENDPOINT}/signin`,
+      {
+        name: credentials.name,
+        email: credentials.email,
+        password: credentials.password,
+      }
+    );
     navigate("/");
     localStorage.setItem("token", response.data.token);
-    authDispatch({type: LOGIN_STATUS}) 
-    toast.success("Signed In Sucessfully!")
-    
+    authDispatch({ type: LOGIN_STATUS });
+    toast.success("Signed In Sucessfully!");
   } catch (err) {
-    console.log(err.response)
-    toast.error("Couldn't fetch User Account Data. Please try logging in again!");
+    console.log(err.response);
+    toast.error(
+      "Couldn't fetch User Account Data. Please try logging in again!"
+    );
   }
 };
 
 export const login = async (email, password, dispatch, navigate, location) => {
   try {
-    const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/login`, {
-      email,
-      password,
-    })
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_ENDPOINT}/login`,
+      {
+        email,
+        password,
+      }
+    );
     localStorage.setItem("token", response.data.token);
     navigate("/");
     dispatch({ type: LOGIN_STATUS });
-    toast.success("Logged In Sucessfully!")
+    toast.success("Logged In Sucessfully!");
   } catch (err) {
     console.log("Error: ", err?.response);
   }
@@ -61,13 +68,13 @@ export const logOut = (authDispatch, navigate) => {
   navigate("/");
   // authDispatch({ type: USER_LOADING});
   // setTimeout(() => authDispatch({ type: USER_LOADING }), 500);
-  toast.success("Logged out Sucessfully!")
+  toast.success("Logged out Sucessfully!");
 };
 
 export const addToCart = async (item, dispatch, navigate) => {
   try {
-    if(!localStorage.getItem("token")) {
-      navigate("/login")
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
     }
     const data = {
       product: item,
@@ -78,7 +85,7 @@ export const addToCart = async (item, dispatch, navigate) => {
       },
     });
     dispatch({ type: CART_DATA, payload: response?.data?.cart });
-    toast.success("Added to Cart")
+    toast.success("Added to Cart");
   } catch (err) {
     console.log("error: " + err.response.data);
   }
@@ -88,7 +95,9 @@ export const addToCart = async (item, dispatch, navigate) => {
 export const getProductList = async (dispatch) => {
   dispatch({ type: LOADING_SPINNER });
   try {
-    const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/products`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_ENDPOINT}/products`
+    );
     dispatch({ type: LOADING_SPINNER });
     dispatch({ type: PRODUCT_LIST_DATA, payload: response.data.products });
   } catch (err) {
@@ -97,111 +106,136 @@ export const getProductList = async (dispatch) => {
   }
 };
 
-export const getSingleProduct = async(id, dispatch) => {
+export const getSingleProduct = async (id, dispatch) => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_API_ENDPOINT}/products/${id}`)
-    dispatch({type: GET_SINGLE_PRODUCT_DATA, payload: response.data.product})
-  } catch(err) {
-    console.log(err)
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_ENDPOINT}/products/${id}`
+    );
+    dispatch({ type: GET_SINGLE_PRODUCT_DATA, payload: response.data.product });
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
 // Wishlist
 export const getWishlistItems = async (dispatch) => {
   dispatch({ type: WISHLIST_LOADER });
   try {
-    const response = await axios.get("/api/user/wishlist", {
-      headers: {
-        authorization: localStorage.getItem("token"),
-      },
-    });
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_ENDPOINT}/wishlist`,
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      }
+    );
     dispatch({ type: WISHLIST_LOADER });
-    dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
+    dispatch({ type: GET_WISHLIST, payload: response.data.wishlist });
   } catch (err) {
     dispatch({ type: WISHLIST_LOADER });
     console.log("error: ", err);
   }
 };
 
+// used on product listing page, to like/unlike the product in wishlist
+export const toggleWishlist = async (
+  productId,
+  dispatch,
+  navigate,
+  setDisable,
+  e,
+  inWishlist
+) => {
+  console.log(localStorage.getItem("token"));
+  e.preventDefault();
+  setDisable(true);
+  try {
+    const data = {
+      productId,
+    };
+    if (!localStorage.getItem("token")) navigate("/login");
+    else {
+      const response = !inWishlist
+        ? await axios.post(
+            `${process.env.REACT_APP_API_ENDPOINT}/wishlist`,
+            data,
+            {
+              headers: {
+                token: localStorage.getItem("token"),
+              },
+            }
+          )
+        : await axios.delete(
+            `${process.env.REACT_APP_API_ENDPOINT}/wishlist/${productId}`,
+            {
+              headers: {
+                token: localStorage.getItem("token"),
+              },
+            }
+          );
 
-  // used on product listing page, to like/unlike the product in wishlist
-  export const toggleWishlist = async (item, dispatch, navigate, setDisable, e, inWishlist) => {
-    e.preventDefault();
-    setDisable(true);
-    try {
-      const data = {
-        product: item,
-      };
-      if (!localStorage.getItem("token")) navigate("/login");
-      else {
-        const response = !inWishlist
-          ? await axios.post("/api/user/wishlist", data, {
-            headers: {
-              authorization: localStorage.getItem("token"),
-            },
-          })
-          : await axios.delete(`/api/user/wishlist/${item._id}`, {
-            headers: {
-              authorization: localStorage.getItem("token"),
-            },
-          })
-
-        dispatch({
-          type: WISHLIST_DATA,
-          payload: response.data.wishlist,
-        });
-        !inWishlist ? toast.success("Added to Wishlist") : toast.success("Deleted from Wishlist")
-      }
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setDisable(false);
+          console.log(inWishlist)
+      !inWishlist
+        ? dispatch({ type: ADD_TO_WISHLIST, payload: response.data.wishlist })
+        : dispatch({ type: REMOVE_FROM_WISHLIST, payload: productId });
+      !inWishlist
+        ? toast.success("Added to Wishlist")
+        : toast.success("Deleted from Wishlist");
+      console.log(response);
     }
-  };
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setDisable(false);
+  }
+};
 
-  export const deleteWishListHandler = async (dispatch, item) => {
-    try {
-      const response = await axios.delete(`/api/user/wishlist/${item._id}`, {
+export const deleteWishListHandler = async (dispatch, item) => {
+  try {
+    const response = await axios.delete(
+      `${process.env.REACT_APP_API_ENDPOINT}/wishlist/${productId}`,
+      {
         headers: {
-          authorization: localStorage.getItem("token"),
+          token: localStorage.getItem("token"),
         },
-      });
-      dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
-      toast.success("Deleted from Wishlist")
-    } catch (err) {
-      console.log("error:- " + err);
-    } 
-  };
+      }
+    );
+    dispatch({ type: REMOVE_FROM_WISHLIST, payload: productId });
+    toast.success("Deleted from Wishlist");
+  } catch (err) {
+    console.log("error:- " + err);
+  }
+};
 
-
-
-export const addToWishListHandler = async ( item , dispatch, navigate) => {
+export const addToWishListHandler = async (productId, dispatch, navigate) => {
   // doubt
   // e.preventDefault();
   // setWishlistLoader(true)
   try {
-    if(!localStorage.getItem("token")) {
-      navigate("/login")
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
     }
     const data = {
-      product: item,
+      productId,
     };
-    const response = await axios.post("/api/user/wishlist", data, {
-      headers: {
-        authorization: localStorage.getItem("token"),
-      },
-    });
-    dispatch({ type: WISHLIST_DATA, payload: response.data.wishlist });
-    toast.success("Added to wishlist")
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_ENDPOINT}/wishlist`,
+      data,
+      {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    dispatch({ type: ADD_TO_WISHLIST, payload: response.data.wishlist })
+    toast.success("Added to wishlist");
   } catch (err) {
     console.log("error:- " + err);
-  } 
+  }
   // finally {
   //   setWishlistLoader(false)
   // }
 };
-
-
 
 // Cart
 export const getCartItems = async (dispatch) => {
@@ -228,7 +262,7 @@ export const deleteCartHandler = async (item, dispatch) => {
       },
     });
     dispatch({ type: CART_DATA, payload: response?.data?.cart });
-    toast.success("Deleted from Cart")
+    toast.success("Deleted from Cart");
   } catch (err) {
     console.log("error: " + err.message);
   }

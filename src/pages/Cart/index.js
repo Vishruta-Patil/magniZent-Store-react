@@ -5,7 +5,7 @@ import { useWishList } from "../../context/wishlistContext";
 import EmptyBag from "../../components/common/EmptyBag";
 import { addToCart, getCartItems } from "../../utils/handler";
 import Loader from "../../components/common/Loader";
-import {HorizontalCard} from "../../components/common/HorizontalCard";
+import { HorizontalCard } from "../../components/common/HorizontalCard";
 import { PriceDetails } from "../../components/Cart/priceDetails";
 
 export const Cart = () => {
@@ -13,16 +13,17 @@ export const Cart = () => {
 
   useEffect(() => getCartItems(dispatch), []);
 
-  const cartQuantity = cartSummary(state.cartData)
-  
+  const cartQuantity = cartSummary(state.cartData);
+
   return (
     <div>
-      {state.wishListLoader ? (
+      {state?.wishListLoader ? (
         <Loader />
       ) : (
         <div className="cart-hero-container">
-         
-          <h2 className="cart-main-header">My Cart ({cartQuantity.cartQuant})</h2>
+          <h2 className="cart-main-header">
+            My Cart ({cartQuantity.cartQuant})
+          </h2>
 
           {cartQuantity.cartQuant === 0 ? (
             <EmptyBag name={"Cart"} img={EMPTY_BAG} />
@@ -30,10 +31,7 @@ export const Cart = () => {
             <div className="cart-management-box flex">
               <div className="cart-display-container flex-column">
                 {state.cartData.map((item, index) => (
-                  <HorizontalCard
-                    item={item}
-                    key={index}
-                  />
+                  <HorizontalCard item={item} key={index} />
                 ))}
               </div>
               <PriceDetails />

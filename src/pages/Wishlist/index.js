@@ -13,25 +13,25 @@ export const Wishlist = () => {
 
   return (
     <div>
-      {state.wishListLoader ? (
+      {state?.wishListLoader ? (
         <Loader />
       ) : (
         <div className="wishlist-container">
           <h2 className="header-wishlist">
-            My Wishlist ({state.wishListData.length})
+            My Wishlist ({state?.wishListData?.length})
           </h2>
 
           <div>
-            {state.wishListData.length === 0 ? (
+            {state?.wishListData?.length === 0 ? (
               <EmptyBag
                 name={"Wishlist"}
                 img={EMPTY_BAG}
               />
             ) : (
               <div className="wishlist-unit">
-                {state.wishListData.map((data, index) => (
+                {state?.wishListData?.map((data, index) => (
                   <ProductCard
-                    item={data}
+                    item={data.product}
                     key={index}
                     clickHandler={({ item }) =>
                       deleteWishListHandler(dispatch, { item })

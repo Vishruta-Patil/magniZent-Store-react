@@ -89,7 +89,7 @@ export const Header = () => {
               <div className="material-icons icon badge-icons">
                 {" "}
                 favorite
-                <span class="flex-container icon-badge">{state.wishListData.length}</span>
+                <span class="flex-container icon-badge">{state?.wishListData?.length}</span>
               </div>
               <p>WishList</p>
             </Link>

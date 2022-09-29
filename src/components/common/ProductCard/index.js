@@ -5,13 +5,14 @@ import {
   addToCart,
   addToWishListHandler,
   deleteWishListHandler,
+  getWishlistItems,
   isWishlisted,
   toggleWishlist,
 } from "../../../utils/handler";
 import { useNavigate } from "react-router";
 import { User } from "../../../context/userContext";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ProductCard = ({ item }) => {
   const { state, dispatch } = useWishList();
@@ -28,14 +29,16 @@ const ProductCard = ({ item }) => {
   const inCart = inCartHandler(item);
 
   const inWishListHandler = (product) => {
-    const isWishlist = state.wishListData.find(
-      (item) => item._id === product._id
+    const isWishlist = state?.wishListData?.find(
+      (prod) => prod?.product?._id === product?._id
     );
     if (isWishlist) return true;
     else return false;
   };
 
   const inWishlist = inWishListHandler(item);
+
+  //const inWishlist = state?.wishListData?.some((prod) => prod?.product?._id === item?._id);
 
   const [wishlistLoader, setWishlistLoader] = useState(false);
 
@@ -82,7 +85,7 @@ const ProductCard = ({ item }) => {
                 className= {`material-icons ${!inWishlist ? "wishlist-icon" : "wishlist-active"}`}
                 onClick={(e) =>
                   toggleWishlist(
-                    item,
+                    item._id,
                     dispatch,
                     navigate,
                     setWishlistLoader,

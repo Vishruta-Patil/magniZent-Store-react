@@ -28,7 +28,7 @@ export const SingleProduct = () => {
   const inCart = inCartHandler(singleProduct);
 
   const inWishListHandler = (product) => {
-    const isWishlist = state.wishListData.find(
+    const isWishlist = state?.wishListData?.find(
       (item) => item._id === product._id
     );
     if (isWishlist) return true;
