@@ -11,7 +11,7 @@ export const Header = () => {
   const { authState, authDispatch } = User();
   const navigate = useNavigate();
 
-  const { state, cartSummary } = useWishList()
+  const { state, dispatch, cartSummary } = useWishList()
   const cartQuantity = cartSummary(state.cartData)
 
   const {productDispatch} = useProductList()
@@ -74,7 +74,7 @@ export const Header = () => {
             ) : (
               <div
                 className="flex-column flex-center secondary-color header-icon"
-                onClick={() => logOut(authDispatch, navigate)}
+                onClick={() => logOut(authDispatch, navigate, dispatch)}
               >
                 <div className="material-icons icon"> logout</div>
                 <p>Logout</p>

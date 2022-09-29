@@ -7,6 +7,7 @@ import {
   GET_WISHLIST,
   REMOVE_FROM_WISHLIST,
   ADD_TO_WISHLIST,
+  RESET_DATA,
 } from "../reducer/wishlist/wishlistConstants";
 import {
   PRODUCT_LIST_DATA,
@@ -62,10 +63,11 @@ export const login = async (email, password, dispatch, navigate, location) => {
   }
 };
 
-export const logOut = (authDispatch, navigate) => {
+export const logOut = (authDispatch, navigate, dispatch) => {
   localStorage.clear();
   authDispatch({ type: LOGIN_STATUS });
   navigate("/");
+  dispatch({type: RESET_DATA})
   // authDispatch({ type: USER_LOADING});
   // setTimeout(() => authDispatch({ type: USER_LOADING }), 500);
   toast.success("Logged out Sucessfully!");
@@ -180,7 +182,7 @@ export const toggleWishlist = async (
         : dispatch({ type: REMOVE_FROM_WISHLIST, payload: productId });
       !inWishlist
         ? toast.success("Added to Wishlist")
-        : toast.success("Deleted from Wishlist");
+        : toast.success("Removed from Wishlist");
       console.log(response);
     }
   } catch (err) {
@@ -201,7 +203,7 @@ export const deleteWishListHandler = async (dispatch, item) => {
       }
     );
     dispatch({ type: REMOVE_FROM_WISHLIST, payload: productId });
-    toast.success("Deleted from Wishlist");
+    toast.success("Removed from Wishlist");
   } catch (err) {
     console.log("error:- " + err);
   }

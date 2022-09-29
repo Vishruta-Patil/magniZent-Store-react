@@ -6,6 +6,7 @@ import {
   GET_WISHLIST,
   ADD_TO_WISHLIST,
   REMOVE_FROM_WISHLIST,
+  RESET_DATA,
 } from "./wishlistConstants";
 
 export const wishlistReducer = (state, action) => {
@@ -19,21 +20,23 @@ export const wishlistReducer = (state, action) => {
     case GET_WISHLIST:
       return {
         ...state,
-        wishListData: action.payload
-      }
+        wishListData: action.payload,
+      };
     case ADD_TO_WISHLIST:
-      console.log("ADD TO THE WISHLIST")
-      console.log(action.payload)
+      console.log("ADD TO THE WISHLIST");
+      console.log(action.payload);
       return {
         ...state,
-        wishListData: [...state.wishListData, action.payload]
-      }
+        wishListData: [...state.wishListData, action.payload],
+      };
     case REMOVE_FROM_WISHLIST:
-      console.log("REMOVE_FROM THE WISHLIST")
+      console.log("REMOVE_FROM THE WISHLIST");
       return {
         ...state,
-        wishListData: state.wishListData.filter(item => item.product._id !== action.payload)
-      }
+        wishListData: state.wishListData.filter(
+          (item) => item.product._id !== action.payload
+        ),
+      };
 
     case CART_DATA:
       return {
@@ -52,7 +55,17 @@ export const wishlistReducer = (state, action) => {
         ...state,
         cartData: action.payload,
       };
+
+    case RESET_DATA:
+      return {
+        ...state,
+        wishListData: [],
+        cartData: [],
+        cartQuantity: 0,
+        priceDetails: {
+          totalPrice: 0,
+          actualPrice: 0,
+        },
+      };
   }
 };
-
-
