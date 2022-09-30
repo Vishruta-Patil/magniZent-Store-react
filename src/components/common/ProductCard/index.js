@@ -21,12 +21,14 @@ const ProductCard = ({ item }) => {
   const { loginStatus } = User();
 
   const inCartHandler = (product) => {
-    const isCart = state.cartData.find((item) => item._id === product._id);
+    const isCart = state?.cartData?.find((item) => item?.product?._id === product?._id);
     if (isCart) return true;
     else return false;
   };
 
   const inCart = inCartHandler(item);
+
+  
 
   const inWishListHandler = (product) => {
     const isWishlist = state?.wishListData?.find(

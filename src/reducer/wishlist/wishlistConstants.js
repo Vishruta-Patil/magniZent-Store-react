@@ -1,9 +1,11 @@
 export const WISHLIST_LOADER = "WISHLIST_LOADER"
-export const WISHLIST_DATA = "WISHLIST_DATA"
-
 export const GET_WISHLIST = "GET_WISHLIST"
 export const ADD_TO_WISHLIST = "ADD_TO_WISHLIST"
 export const REMOVE_FROM_WISHLIST = "REMOVE_FROM_WISHLIST"
+
+export const GET_CART = "GET_CART"
+export const ADD_TO_CART = "ADD_TO_CART"
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
 
 export const CART_DATA = "CART_DATA"
 export const CART_INCREMENT = "CART_INCREMENT"

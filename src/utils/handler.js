@@ -8,6 +8,9 @@ import {
   REMOVE_FROM_WISHLIST,
   ADD_TO_WISHLIST,
   RESET_DATA,
+  GET_CART,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
 } from "../reducer/wishlist/wishlistConstants";
 import {
   PRODUCT_LIST_DATA,
@@ -73,26 +76,6 @@ export const logOut = (authDispatch, navigate, dispatch) => {
   toast.success("Logged out Sucessfully!");
 };
 
-export const addToCart = async (item, dispatch, navigate) => {
-  try {
-    if (!localStorage.getItem("token")) {
-      navigate("/login");
-    }
-    const data = {
-      product: item,
-    };
-    const response = await axios.post("/api/user/cart", data, {
-      headers: {
-        authorization: localStorage.getItem("token"),
-      },
-    });
-    dispatch({ type: CART_DATA, payload: response?.data?.cart });
-    toast.success("Added to Cart");
-  } catch (err) {
-    console.log("error: " + err.response.data);
-  }
-};
-
 // Product List
 export const getProductList = async (dispatch) => {
   dispatch({ type: LOADING_SPINNER });
@@ -148,7 +131,6 @@ export const toggleWishlist = async (
   e,
   inWishlist
 ) => {
-  console.log(localStorage.getItem("token"));
   e.preventDefault();
   setDisable(true);
   try {
@@ -176,36 +158,17 @@ export const toggleWishlist = async (
             }
           );
 
-          console.log(inWishlist)
       !inWishlist
         ? dispatch({ type: ADD_TO_WISHLIST, payload: response.data.wishlist })
         : dispatch({ type: REMOVE_FROM_WISHLIST, payload: productId });
       !inWishlist
         ? toast.success("Added to Wishlist")
         : toast.success("Removed from Wishlist");
-      console.log(response);
     }
   } catch (err) {
     console.log(err);
   } finally {
     setDisable(false);
-  }
-};
-
-export const deleteWishListHandler = async (dispatch, item) => {
-  try {
-    const response = await axios.delete(
-      `${process.env.REACT_APP_API_ENDPOINT}/wishlist/${productId}`,
-      {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      }
-    );
-    dispatch({ type: REMOVE_FROM_WISHLIST, payload: productId });
-    toast.success("Removed from Wishlist");
-  } catch (err) {
-    console.log("error:- " + err);
   }
 };
 
@@ -225,69 +188,119 @@ export const addToWishListHandler = async (productId, dispatch, navigate) => {
       data,
       {
         headers: {
-          authorization: localStorage.getItem("token"),
+          token: localStorage.getItem("token"),
         },
       }
     );
     dispatch({ type: ADD_TO_WISHLIST, payload: response.data.wishlist })
     toast.success("Added to wishlist");
   } catch (err) {
-    console.log("error:- " + err);
+    console.log(err.response);
   }
   // finally {
   //   setWishlistLoader(false)
   // }
 };
 
+export const deleteWishListHandler = async (dispatch, productId) => {
+  try {
+    const response = await axios.delete(
+      `${process.env.REACT_APP_API_ENDPOINT}/wishlist/${productId}`,
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      }
+    );
+    dispatch({ type: REMOVE_FROM_WISHLIST, payload: productId });
+    toast.success("Removed from Wishlist");
+  } catch (err) {
+    console.log("error:- " + err);
+  }
+};
+
 // Cart
 export const getCartItems = async (dispatch) => {
   dispatch({ type: WISHLIST_LOADER });
   try {
-    const response = await axios.get("/api/user/cart", {
-      headers: {
-        authorization: localStorage.getItem("token"),
-      },
-    });
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_ENDPOINT}/cart`,
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      }
+    );
     dispatch({ type: WISHLIST_LOADER });
-    dispatch({ type: CART_DATA, payload: response.data.cart });
+    dispatch({ type: GET_CART, payload: response.data.cart });
   } catch (err) {
     dispatch({ type: WISHLIST_LOADER });
     console.log("error: ", err);
   }
 };
 
+export const addToCart = async (item, dispatch, navigate) => {
+  try {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+    const data = {
+      productId: item?._id
+    };
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_ENDPOINT}/cart`,
+      data,
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      }
+    );
+    dispatch({ type: ADD_TO_CART, payload: response?.data?.cart });
+    toast.success("Added to Cart");
+  } catch (err) {
+    console.log(err.response);
+  }
+};
+
 export const deleteCartHandler = async (item, dispatch) => {
   try {
-    const response = await axios.delete(`/api/user/cart/${item?._id}`, {
-      headers: {
-        authorization: localStorage.getItem("token"),
-      },
-    });
-    dispatch({ type: CART_DATA, payload: response?.data?.cart });
+    const response = await axios.delete(
+      `${process.env.REACT_APP_API_ENDPOINT}/cart/${item?._id}`,
+      {
+        headers: {
+          token: localStorage.getItem("token"),
+        },
+      }
+    )
+    dispatch({ type: REMOVE_FROM_CART, payload: item?._id });
     toast.success("Deleted from Cart");
   } catch (err) {
     console.log("error: " + err.message);
   }
 };
 
-export const cartQuantityHandler = async (item, actionType, dispatch) => {
+export const cartQuantityHandler = async (item, type, dispatch) => {
+  const dataPayload = {
+    type
+  }
   try {
-    const { data } = await axios.post(
-      `/api/user/cart/${item?._id}`,
-      { action: { type: actionType } },
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_ENDPOINT}/cart/${item?.product?._id}`,
+      dataPayload,
       {
         headers: {
-          authorization: localStorage.getItem("token"),
+          token: localStorage.getItem("token"),
         },
       }
-    );
-    const { cart } = data;
+    )
+  
     dispatch(
-      actionType === "increment"
-        ? { type: CART_INCREMENT, payload: cart }
-        : { type: CART_DECREMENT, payload: cart }
+      type === "INCREMENT"
+        ? { type: CART_INCREMENT, payload: item?.product?._id }
+        : { type: CART_DECREMENT, payload: item?.product?._id }
     );
   } catch (err) {
-    console.log("error: " + err);
+    console.log(err);
   }
 };

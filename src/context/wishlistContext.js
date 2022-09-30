@@ -20,13 +20,15 @@ const WishlistProvider = ({ children }) => {
   };
   const [state, dispatch] = useReducer(wishlistReducer, initialValue);
 
+
+
   const cartSummary = (cartData) => {
-    return cartData.reduce(
+    return  cartData?.reduce(
       (acc, curr) => ({
         ...acc,
-        cartQuant: acc.cartQuant + curr.qty,
-        totalPrice: acc.totalPrice + (curr.qty * curr.product_price),
-        discountedPrice: acc.discountedPrice + (curr.qty * (curr.product_price * curr.product_offer) / 100),
+        cartQuant: acc.cartQuant + curr.quantity,
+        totalPrice: acc.totalPrice + (curr.quantity * curr?.product?.product_price),
+        discountedPrice: acc.discountedPrice + (curr?.quantity * (curr?.product?.product_price * curr?.product?.product_offer) / 100),
         deliveryCharges: +acc.totalPrice > 3000 ? 49 : 0,
       }),
       { cartQuant: 0, 

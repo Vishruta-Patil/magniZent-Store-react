@@ -5,7 +5,7 @@ import ProductCard from "../../components/common/ProductCard";
 import topProductsData from "../../data/topProductsData";
 import Loader from "../../components/common/Loader";
 import { User } from "../../context/userContext";
-import { addToWishListHandler, getProductList, getWishlistItems } from "../../utils/handler";
+import { addToWishListHandler, getCartItems, getProductList, getWishlistItems } from "../../utils/handler";
 import { useWishList } from "../../context/wishlistContext";
 import { useProductList } from "../../context/productListContext";
 import { useEffect } from "react";
@@ -17,9 +17,8 @@ export const Home = () => {
   useEffect(() => {
     getProductList(productDispatch);
     getWishlistItems(dispatch);
+     getCartItems(dispatch)
   }, []);
-
-  console.log(state.wishListData)
  
   return (
     <div>

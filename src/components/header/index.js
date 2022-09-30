@@ -12,7 +12,7 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const { state, dispatch, cartSummary } = useWishList()
-  const cartQuantity = cartSummary(state.cartData)
+  const cartQuantity = cartSummary(state?.cartData)
 
   const {productDispatch} = useProductList()
 
@@ -102,7 +102,7 @@ export const Header = () => {
               <div className="material-icons icon badge-icons">
                 {" "}
                 shopping_cart
-                <span class="flex-container icon-badge">{cartQuantity.cartQuant}</span>
+                <span class="flex-container icon-badge">{cartQuantity?.cartQuant}</span>
               </div>
               <p>Cart</p>
             </Link>

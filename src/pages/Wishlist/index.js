@@ -9,7 +9,7 @@ import { EMPTY_BAG } from "../../reducer/wishlist/wishlistConstants";
 
 export const Wishlist = () => {
   const { state, dispatch } = useWishList();
-  useEffect(() => getWishlistItems(dispatch), []);
+  useEffect(() =>  getWishlistItems(dispatch), []);
 
   return (
     <div>

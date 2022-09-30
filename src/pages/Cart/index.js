@@ -13,7 +13,8 @@ export const Cart = () => {
 
   useEffect(() => getCartItems(dispatch), []);
 
-  const cartQuantity = cartSummary(state.cartData);
+  const cartQuantity = cartSummary(state?.cartData);
+
 
   return (
     <div>
@@ -22,10 +23,10 @@ export const Cart = () => {
       ) : (
         <div className="cart-hero-container">
           <h2 className="cart-main-header">
-            My Cart ({cartQuantity.cartQuant})
+            My Cart ({cartQuantity?.cartQuant})
           </h2>
 
-          {cartQuantity.cartQuant === 0 ? (
+          {cartQuantity?.cartQuant === 0 ? (
             <EmptyBag name={"Cart"} img={EMPTY_BAG} />
           ) : (
             <div className="cart-management-box flex">
