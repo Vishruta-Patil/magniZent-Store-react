@@ -5,8 +5,10 @@
 .filter-container {
   grid-area: menu;
   margin: 3rem;
+  height: calc(100vh - 3rem);
+  position: -webkit-sticky;
   position: sticky;
-  top: 1rem
+  top: 3rem;
 }
 
 .filter-header {
@@ -36,7 +38,7 @@ hr {
 }
 
 .clear-link:hover {
-  color: var(--primary-color)
+  color: var(--primary-color);
 }
 
 /* Product Container */
@@ -52,13 +54,12 @@ hr {
 .product-unit {
   max-width: 300px;
   padding: 2rem;
-  border: 0.5px solid var( --product-box-border); 
+  border: 0.5px solid var(--product-box-border);
 }
 
 .product-unit:hover {
   border: none;
-  box-shadow: var( --product-box-shadow)
-  
+  box-shadow: var(--product-box-shadow);
 }
 
 .product-unit-header {
@@ -131,7 +132,7 @@ hr {
 .mb-filter.filter-content-title {
   font-size: 2.3rem;
   margin-bottom: 1rem;
-  color: var(--black-color)
+  color: var(--black-color);
 }
 
 .mb-filter.filter-item {
@@ -143,7 +144,6 @@ hr {
 .mb-filter.filter-header {
   font-size: 2.3rem;
 }
-
 
 @media only screen and (max-width: 695px) {
   .product-container {

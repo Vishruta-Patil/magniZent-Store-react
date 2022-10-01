@@ -25,7 +25,7 @@ export const PriceDetails = () => {
       <hr className="rg-line" />
       <div className="total-amount-box black-color justify-between">
         <p className="total-amount">Total Amount</p>
-        <p>₹{(cartDetails.totalPrice + cartDetails.deliveryCharges).toFixed(2)}</p>
+        <p>₹{(cartDetails.totalPrice).toFixed(2)}</p>
       </div>
       <hr className="rg-line" />
       <p className="gen-msg">You will save ₹ {(cartDetails.discountedPrice - cartDetails.deliveryCharges).toFixed(2)} on this order</p>

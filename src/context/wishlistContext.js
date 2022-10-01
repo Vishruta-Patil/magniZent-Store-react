@@ -29,7 +29,7 @@ const WishlistProvider = ({ children }) => {
         cartQuant: acc.cartQuant + curr.quantity,
         totalPrice: acc.totalPrice + (curr.quantity * curr?.product?.product_price),
         discountedPrice: acc.discountedPrice + (curr?.quantity * (curr?.product?.product_price * curr?.product?.product_offer) / 100),
-        deliveryCharges: +acc.totalPrice > 3000 ? 49 : 0,
+        deliveryCharges: acc.totalPrice + (curr.quantity * curr?.product?.product_price) > 3000 ? 49 : 0,
       }),
       { cartQuant: 0, 
         totalPrice: 0, 

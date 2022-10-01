@@ -78,7 +78,7 @@ export const HorizontalCard = ({ item }) => {
             className="outline-btn add-wishlist-btn"
             onClick={() => deleteWishListHandler(dispatch, item.product?._id)}
           >
-            Delete to Wishlist
+            Delete from Wishlist
           </button>
             
           )}
